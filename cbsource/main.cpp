@@ -46,7 +46,5 @@ int main()
     reader.setCallback(callback);
     reader.readAll();
 
-    delete callback;
-
     return 0;
 }
