@@ -7,13 +7,13 @@ CBMenuItemsSet::CBMenuItemsSet()
 
 CBMenuItemsSet::CBMenuItemsSet(CBMenuItemsSet &set)
 {
-    this->_itemList = set.getCBMenuItemList();
+    this->_itemList = set.getItemList();
 }
 
 CBMenuItemsSet::CBMenuItemsSet(const CBMenuItemsSet &set)
 {
     CBMenuItemsSet s = set;
-    this->_itemList = s.getCBMenuItemList();
+    this->_itemList = s.getItemList();
 }
 
 bool CBMenuItemsSet::add(CBMenuItem* item)
@@ -122,7 +122,7 @@ bool CBMenuItemsSet::contains(CBMenuItem* item)
     return false;
 }
 
-QList<CBMenuItem*> CBMenuItemsSet::getCBMenuItemList()
+QList<CBMenuItem*> CBMenuItemsSet::getItemList()
 {
     return this->_itemList;
 }

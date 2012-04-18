@@ -26,7 +26,7 @@ public:
 
     CBMenuItem* get(CBId id);
 
-    QList<CBMenuItem*> getCBMenuItemList();
+    QList<CBMenuItem*> getItemList();
 
 private:
     QList<CBMenuItem*> _itemList;
