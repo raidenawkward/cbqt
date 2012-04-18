@@ -17,6 +17,13 @@ CBMenuItem::CBMenuItem(CBMenuItem& item)
     _iconId = item.getIconId();
 }
 
+CBMenuItem::CBMenuItem(const CBMenuItem& item)
+{
+    CBMenuItem newItem = item;
+    _dish = newItem.getDish();
+    _iconId = newItem.getIconId();
+}
+
 bool CBMenuItem::isTagContained(QString tag)
 {
     return _dish.isTagContained(tag);

@@ -16,7 +16,8 @@ SOURCES += cbsupport.cpp \
     cbdish.cpp \
     cborder.cpp \
     cbcustomer.cpp \
-    cbmenuitem.cpp
+    cbmenuitem.cpp \
+    cbmenuitemsset.cpp
 
 HEADERS += cbsupport.h \
     cbifsethandler.h \
@@ -25,7 +26,8 @@ HEADERS += cbsupport.h \
     cbdish.h \
     cborder.h \
     cbcustomer.h \
-    cbmenuitem.h
+    cbmenuitem.h \
+    cbmenuitemsset.h
 unix:!symbian {
     maemo5 {
         target.path = /opt/usr/lib
