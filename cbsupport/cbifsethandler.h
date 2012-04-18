@@ -15,6 +15,7 @@ public:
     virtual int getIndexOf(TYPE item) = 0;
     virtual int count() = 0;
     virtual bool contains(TYPE item) = 0;
+    virtual void clear() = 0;
 };
 
 #endif // CBIFSETHANDLER_H

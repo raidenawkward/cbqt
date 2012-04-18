@@ -21,6 +21,7 @@ public:
     virtual int getIndexOf(CBOrder* item);
     virtual int count();
     virtual bool contains(CBOrder* item);
+    virtual void clear();
 
     CBOrder* get(CBId id);
 

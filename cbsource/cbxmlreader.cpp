@@ -56,10 +56,10 @@ void CBXmlReader::setFilePath(const QString filePath)
     setIODevice(file);
 }
 
-void CBXmlReader::readAll()
+bool CBXmlReader::readAll()
 {
     if (!_streamReader)
-        return;
+        return false;
 
     QXmlStreamAttributes attrs;
     QString tag = "";
@@ -104,12 +104,12 @@ void CBXmlReader::readAll()
         _streamReader->readNext();
     }
 
-    return;
+    return true;
 
 error:
     if (_streamReader->hasError()) {
-        exit(13);
     }
+    return false;
 }
 
 void CBXmlReader::setCallback(CBXmlReaderCallback* callback)

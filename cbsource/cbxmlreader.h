@@ -23,7 +23,7 @@ public:
     void setIODevice(QIODevice *device);
     void setFilePath(const QString filePath);
 
-    void readAll();
+    bool readAll();
 
     void setCallback(CBXmlReaderCallback* callback);
 

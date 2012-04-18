@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "cbmenuitemsset.h"
+
+#define CBSERVERMONITOR_DISHES_DIR "dishes"
 
 namespace Ui {
 class MainWindow;
@@ -24,9 +27,11 @@ private slots:
 
 private:
     void initTabWidget();
+    void refreshMenuItemList();
 
 private:
     Ui::MainWindow *ui;
+    CBMenuItemsSet _menuItemSet;
 };
 
 #endif // MAINWINDOW_H

@@ -129,6 +129,11 @@ CBOrder* CBOrdersSet::get(CBId id)
     return NULL;
 }
 
+void CBOrdersSet::clear()
+{
+    _itemList.clear();
+}
+
 QList<CBOrder*> CBOrdersSet::getItemList()
 {
     return _itemList;

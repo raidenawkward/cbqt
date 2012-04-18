@@ -122,7 +122,18 @@ bool CBMenuItemsSet::contains(CBMenuItem* item)
     return false;
 }
 
+void CBMenuItemsSet::clear()
+{
+    _itemList.clear();
+}
+
 QList<CBMenuItem*> CBMenuItemsSet::getItemList()
 {
     return this->_itemList;
+}
+
+CBMenuItemsSet& CBMenuItemsSet::operator =(CBMenuItemsSet set)
+{
+    this->_itemList = set.getItemList();
+    return *this;
 }

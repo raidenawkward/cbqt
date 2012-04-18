@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "dishinfodialog.h"
+#include "cbdishesscanner.h"
+#include "cbmenuitem.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -45,6 +47,14 @@ void MainWindow::initTabWidget()
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->setAlternatingRowColors(true);
     ui->tableWidget->resizeColumnToContents (0);
+}
+
+void MainWindow::refreshMenuItemList()
+{
+    CBDishesScanner scanner(CBSERVERMONITOR_DISHES_DIR);
+    scanner.scan();
+
+    this->_menuItemSet = scanner.getMenuItemSet();
 }
 
 void MainWindow::on_buttonEdit_clicked()

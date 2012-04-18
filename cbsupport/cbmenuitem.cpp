@@ -8,7 +8,6 @@ CBMenuItem::CBMenuItem()
 CBMenuItem::CBMenuItem(CBDish &dish)
 {
     _dish = dish;
-
 }
 
 CBMenuItem::CBMenuItem(CBMenuItem& item)

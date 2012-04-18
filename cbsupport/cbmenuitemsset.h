@@ -23,6 +23,9 @@ public:
     virtual int getIndexOf(CBMenuItem* item);
     virtual int count();
     virtual bool contains(CBMenuItem* item);
+    virtual void clear();
+
+    CBMenuItemsSet& operator =(CBMenuItemsSet set);
 
     CBMenuItem* get(CBId id);
 

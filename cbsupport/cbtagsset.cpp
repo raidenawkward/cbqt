@@ -128,6 +128,11 @@ int CBTagsSet::getIntersection(CBTagsSet set)
     return res;
 }
 
+void CBTagsSet::clear()
+{
+    _tagsList.clear();
+}
+
 QString CBTagsSet::toString(const QString spliter)
 {
     QString res;

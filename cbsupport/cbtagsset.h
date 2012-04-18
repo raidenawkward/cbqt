@@ -23,6 +23,7 @@ public:
     int getIndexOf(QString item);
     int count();
     bool contains(QString item);
+    virtual void clear();
 
     bool isEmpty();
     int combine(CBTagsSet &set);
