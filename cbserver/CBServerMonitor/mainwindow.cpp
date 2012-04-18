@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     initTabWidget();
-    refreshTabWidget();
+    refreshMenuItemList();
 }
 
 MainWindow::~MainWindow()
@@ -25,22 +25,97 @@ void MainWindow::on_buttonAdd_clicked()
     dialog.exec();
 }
 
+QTableWidgetItem* MainWindow::generateTableItem(CBDish &dish, DISH_TABLE_HEADER header)
+{
+    QString content;
+    switch (header)
+    {
+    case DISH_TABLE_ID:
+        content = dish.getId().toString();
+    case DISH_TABLE_NAME:
+        content = dish.getName();
+    case DISH_TABLE_PRICE:
+        content = QString::number(dish.getPrice());
+    case DISH_TABLE_SCORE:
+        content = QString::number(dish.getScore());
+    case DISH_TABLE_TAGS:
+        content = dish.getTagsSet().toString(CBDISH_TAG_TAGS_SPLITER);
+    case DISH_TABLE_SUMMARY:
+        content = dish.getSummary();
+    case DISH_TABLE_DETAIL:
+        content = dish.getDetail();
+    case DISH_TABLE_THUMB:
+        content = dish.getThumb();
+    case DISH_TABLE_PICTURE:
+        content = dish.getPicture();
+    case DISH_TABLE_UNKNOWN:
+    default:
+        break;
+    }
+    QTableWidgetItem *tabItem = new QTableWidgetItem(content);
+    tabItem->setTextAlignment(Qt::AlignCenter);
+
+    return tabItem;
+}
+
+QString MainWindow::generateTableString(DISH_TABLE_HEADER header)
+{
+    switch (header)
+    {
+    case DISH_TABLE_ID:
+        return tr("编号");
+    case DISH_TABLE_NAME:
+        return tr("名称");
+    case DISH_TABLE_PRICE:
+        return tr("单价");
+    case DISH_TABLE_SCORE:
+        return tr("评分");
+    case DISH_TABLE_TAGS:
+        return tr("标签");
+    case DISH_TABLE_SUMMARY:
+        return tr("简介");
+    case DISH_TABLE_DETAIL:
+        return tr("详细介绍");
+    case DISH_TABLE_THUMB:
+        return tr("缩略图");
+    case DISH_TABLE_PICTURE:
+        return tr("大图片");
+    case DISH_TABLE_UNKNOWN:
+    default:
+        break;
+    }
+
+    return QString();
+}
+
 void MainWindow::refreshTabWidget()
 {
-    for (int i = 0; i < 6; ++i)
+    int rowCount = _menuItemSet.count();
+    ui->tableWidget->setRowCount(rowCount);
+
+    for (int i = 0; i < rowCount; ++i)
     {
-        QTableWidgetItem *item = new QTableWidgetItem(QString::number(i));
-        item->setTextAlignment(Qt::AlignCenter);
-        ui->tableWidget->setItem(i, 0, item);
+        CBMenuItem *item = _menuItemSet.get(i);
+        if (!item)
+            continue;
+
+        CBDish dish = item->getDish();
+
+        for (int j = DISH_TABLE_ID; j < DISH_TABLE_UNKNOWN; ++j)
+        {
+            QTableWidgetItem *tabItem = generateTableItem(dish, (DISH_TABLE_HEADER)j);
+            ui->tableWidget->setItem(i, j, tabItem);
+        }
     }
 }
 
 void MainWindow::initTabWidget()
 {
     QStringList headers;
-    headers<<tr("编号")<<tr("名称")<<tr("单价")<<tr("评分")<<tr("标签")<<tr("简介")<<tr("详细介绍")<<tr("缩略图")<<tr("大图片");
+    for (int i = DISH_TABLE_ID; i < DISH_TABLE_UNKNOWN; ++i)
+        headers<<generateTableString((DISH_TABLE_HEADER)i);
+
     ui->tableWidget->setColumnCount(headers.count());
-    ui->tableWidget->setRowCount(3);
     ui->tableWidget->setHorizontalHeaderLabels(headers);
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -61,4 +136,9 @@ void MainWindow::on_buttonEdit_clicked()
 {
     DishInfoDialog dialog;
     dialog.exec();
+}
+
+void MainWindow::showEvent(QShowEvent *)
+{
+    this->refreshTabWidget();
 }
