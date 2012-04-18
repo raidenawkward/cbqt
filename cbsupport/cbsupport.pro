@@ -6,7 +6,7 @@
 
 QT       -= gui
 
-TARGET = CBSupport
+TARGET = cbsupport
 TEMPLATE = lib
 CONFIG += staticlib
 

@@ -9,7 +9,7 @@ DishInfoDialog::DishInfoDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     QRegExp regx("[0-9]*[.]?[0-9]*");
-    QValidator *validator = new QRegExpValidator(regx);
+    QValidator *validator = new QRegExpValidator(regx, this);
     ui->lineEditPrice->setValidator(validator);
     ui->lineEditScore->setValidator(validator);
 

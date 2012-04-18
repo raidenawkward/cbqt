@@ -20,16 +20,16 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     dishinfodialog.ui
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../cbsupport/release/ -lCBSupport
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../cbsupport/debug/ -lCBSupport
-else:unix:!symbian: LIBS += -L$$OUT_PWD/../../cbsupport/ -lCBSupport
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../cbsupport/release/ -lcbsupport
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../cbsupport/debug/ -lcbsupport
+else:unix:!symbian: LIBS += -L$$OUT_PWD/../../cbsupport/ -lcbsupport
 
 INCLUDEPATH += $$PWD/../../cbsupport
 DEPENDPATH += $$PWD/../../cbsupport
 
-win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../cbsupport/release/CBSupport.lib
-else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../cbsupport/debug/CBSupport.lib
-else:unix:!symbian: PRE_TARGETDEPS += $$OUT_PWD/../../cbsupport/libCBSupport.a
+win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../cbsupport/release/cbsupport.lib
+else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../cbsupport/debug/cbsupport.lib
+else:unix:!symbian: PRE_TARGETDEPS += $$OUT_PWD/../../cbsupport/libcbsupport.a
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../cbsource/release/ -lcbsource
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../cbsource/debug/ -lcbsource
