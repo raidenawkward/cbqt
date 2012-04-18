@@ -17,6 +17,7 @@ public:
 
     bool operator == (CBId id);
     bool operator != (CBId id);
+    bool equals(CBId id);
 
 private:
     QString _id;

@@ -164,6 +164,11 @@ bool CBTagsSet::operator == (CBTagsSet set)
     return (getIntersection(set) == _tagsList.count());
 }
 
+bool CBTagsSet::equals(CBTagsSet set)
+{
+    return (getIntersection(set) == _tagsList.count());
+}
+
 QStringList CBTagsSet::getTagsList()
 {
     return this->_tagsList;

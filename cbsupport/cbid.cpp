@@ -44,6 +44,11 @@ bool CBId::operator != (CBId id)
     return !(_id.compare(id.getId()) == 0);
 }
 
+bool CBId::equals(CBId id)
+{
+    return (_id.compare(id.getId()) == 0);
+}
+
 //CBId& CBId::operator = (CBId id)
 //{
 //    setId(id);

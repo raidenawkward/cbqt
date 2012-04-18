@@ -32,6 +32,7 @@ public:
     CBTagsSet& operator + (CBTagsSet set);
     CBTagsSet& operator - (CBTagsSet set);
     bool operator == (CBTagsSet set);
+    bool equals(CBTagsSet set);
 
     QStringList getTagsList();
     void setTagsList(QStringList list);

@@ -17,6 +17,7 @@ public:
 
     bool operator ==(CBMenuItem item);
     bool operator !=(CBMenuItem item);
+    bool equals(CBMenuItem item);
 //    CBMenuItem& operator =(CBMenuItem item);
 
     CBDish& getDish() { return _dish; }

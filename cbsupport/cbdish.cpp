@@ -70,6 +70,11 @@ bool CBDish::operator != (CBDish dish)
     return !(getId() == dish.getId());
 }
 
+bool CBDish::equals(CBDish dish)
+{
+    return (getId().equals(dish.getId()));
+}
+
 bool CBDish::setDishAttr(CBDish &dish, const QString attr, const QString value)
 {
     if (attr == CBDISH_TAG_ID)

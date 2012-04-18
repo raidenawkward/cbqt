@@ -13,12 +13,17 @@ CBOrder::CBOrder(CBOrder &order)
 
 bool CBOrder::operator ==(CBOrder order)
 {
-    return getId() == order.getId();
+    return getId().equals(order.getId());
 }
 
 bool CBOrder::operator !=(CBOrder order)
 {
-    return getId() != order.getId();
+    return getId().equals(order.getId());
+}
+
+bool CBOrder::equals(CBOrder order)
+{
+    return getId().equals(order.getId());
 }
 
 CBOrder& CBOrder::operator=(CBOrder order)
@@ -71,7 +76,7 @@ CBOrderedItem* CBOrder::getOrderedItemFromOrderedList(CBMenuItem item)
     for (int i = 0; i < this->_orderedItems.count(); ++i)
     {
         CBOrderedItem orderedItem = _orderedItems.at(i);
-        if (orderedItem.item == item)
+        if (orderedItem.item.equals(item))
         {
             res = &orderedItem;
             return res;
@@ -150,7 +155,7 @@ int CBOrder::getOrderedItemIndex(CBMenuItem item)
 {
     for (int i = 0; i < _orderedItems.count(); ++i) {
         CBOrderedItem it = _orderedItems.at(i);
-        if (it.item == item)
+        if (it.item.equals(item))
             return i;
     }
 

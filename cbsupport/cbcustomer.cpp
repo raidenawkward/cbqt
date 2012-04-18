@@ -20,12 +20,17 @@ CBCustomer::CBCustomer(QString string)
 
 bool CBCustomer::operator == (CBCustomer customer)
 {
-    return (getId() == customer.getId());
+    return (getId().equals(customer.getId()));
 }
 
 bool CBCustomer::operator != (CBCustomer customer)
 {
-    return !(getId() == customer.getId());
+    return !(getId().equals(customer.getId()));
+}
+
+bool CBCustomer::equals(CBCustomer customer)
+{
+    return (getId().equals(customer.getId()));
 }
 
 CBCustomer& CBCustomer::operator = (CBCustomer customer)

@@ -49,6 +49,16 @@ bool CBMenuItem::operator != (CBMenuItem item)
     return !(*this == (item));
 }
 
+bool CBMenuItem::equals(CBMenuItem item)
+{
+    if (!getDish().equals(item.getDish()))
+        return false;
+    if (getIconId() != item.getIconId())
+        return false;
+
+    return true;
+}
+
 //CBMenuItem& CBMenuItem::operator = (CBMenuItem item)
 //{
 //    _dish = item.getDish();

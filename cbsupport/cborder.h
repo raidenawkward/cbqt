@@ -54,6 +54,7 @@ public:
     bool operator ==(CBOrder order);
     bool operator !=(CBOrder order);
     CBOrder& operator=(CBOrder order);
+    bool equals(CBOrder order);
 
 
     CBId& getId() { return _id; }

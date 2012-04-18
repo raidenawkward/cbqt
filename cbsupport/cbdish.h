@@ -34,6 +34,7 @@ public:
 
     bool operator ==(CBDish dish);
     bool operator !=(CBDish dish);
+    bool equals(CBDish dish);
 
     CBId& getId() { return _id; }
     void setId(CBId id) { _id = id; }

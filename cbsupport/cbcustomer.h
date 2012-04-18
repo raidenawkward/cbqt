@@ -14,6 +14,7 @@ public:
 
     bool operator == (CBCustomer customer);
     bool operator != (CBCustomer customer);
+    bool equals(CBCustomer customer);
     CBCustomer& operator = (CBCustomer customer);
     QString toString();
 

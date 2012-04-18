@@ -39,7 +39,7 @@ CBMenuItem* CBMenuItemsSet::get(CBMenuItem* item)
     for (int i = 0; i < _itemList.count(); ++i)
     {
         CBMenuItem *it = _itemList.at(i);
-        if (it->getDish() == item->getDish())
+        if (it->getDish().equals(item->getDish()))
         {
             return it;
         }
@@ -53,7 +53,7 @@ CBMenuItem* CBMenuItemsSet::get(CBId id)
     for (int i = 0; i < _itemList.count(); ++i)
     {
         CBMenuItem *item = _itemList.at(i);
-        if (item->getDish().getId() == id)
+        if (item->getDish().getId().equals(id))
             return item;
     }
 
@@ -97,7 +97,7 @@ int CBMenuItemsSet::getIndexOf(CBMenuItem *item)
         CBMenuItem *it = _itemList.at(i);
         if (!it)
             continue;
-        if (it->getDish() == item->getDish())
+        if (it->getDish().equals(item->getDish()))
             return i;
     }
 
@@ -116,7 +116,7 @@ bool CBMenuItemsSet::contains(CBMenuItem* item)
         CBMenuItem *it = _itemList.at(i);
         if (!it)
             continue;
-        if (it->getDish() == item->getDish())
+        if (it->getDish().equals(item->getDish()))
             return true;
     }
     return false;
