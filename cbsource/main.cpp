@@ -2,6 +2,7 @@
 #include <QDebug>
 #include "cbxmlwriter.h"
 #include "cbxmlreader.h"
+#include "cbpathwalker.h"
 
 #define TEST_XML "/tmp/test.xml"
 
@@ -19,8 +20,26 @@ class ReaderCallback : public CBXmlReaderCallback
     }
 };
 
+class PathWalkerCallback : public CBPathWalkerCallback
+{
+public:
+    virtual bool onDirDetected(QFileInfo dir, int depth)
+    {
+        qDebug()<<"dir: "<<dir.absolutePath()<<", depth: "<<depth;
+        return true;
+    }
+
+    virtual bool onFileDetected(QFileInfo file, int depth)
+    {
+        qDebug()<<"file: "<<file.absolutePath()<<", depth: "<<depth;
+        return true;
+    }
+};
+
 int main()
 {
+
+#if 0
     CBXmlWriter writer(TEST_XML);
 
     writer.start();
@@ -45,6 +64,13 @@ int main()
     ReaderCallback *callback = new ReaderCallback();
     reader.setCallback(callback);
     reader.readAll();
+#endif
+
+    CBPathWalker walker("/home/huangtao");
+    PathWalkerCallback *callback = new PathWalkerCallback();
+    walker.setCallback(callback);
+    walker.go();
+
 
     return 0;
 }

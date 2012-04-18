@@ -17,11 +17,13 @@ CONFIG += staticlib
 SOURCES += \
     cbxmlwriter.cpp \
     main.cpp \
-    cbxmlreader.cpp
+    cbxmlreader.cpp \
+    cbpathwalker.cpp
 
 HEADERS += \
     cbxmlwriter.h \
-    cbxmlreader.h
+    cbxmlreader.h \
+    cbpathwalker.h
 unix:!symbian {
     maemo5 {
         target.path = /opt/usr/lib
