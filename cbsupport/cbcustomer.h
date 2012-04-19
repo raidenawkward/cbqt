@@ -11,7 +11,6 @@ class CBCustomer
 public:
     CBCustomer();
     CBCustomer(QString string);
-    CBCustomer(const CBCustomer &customer);
 
     bool operator == (CBCustomer customer);
     bool operator != (CBCustomer customer);

@@ -35,7 +35,6 @@ class CBOrder
 {
 public:
     CBOrder();
-    CBOrder(const CBOrder &order);
 
     bool addItem(CBMenuItem item, int count = 1);
     bool removeItem(CBMenuItem item);

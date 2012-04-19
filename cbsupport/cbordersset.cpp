@@ -4,11 +4,6 @@ CBOrdersSet::CBOrdersSet()
 {
 }
 
-CBOrdersSet::CBOrdersSet(const CBOrdersSet &set)
-{
-    this->_itemList = set._itemList;
-}
-
 bool CBOrdersSet::add(CBOrder* item)
 {
     if (this->contains(item))

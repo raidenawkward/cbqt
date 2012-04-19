@@ -4,11 +4,6 @@ CBTagsSet::CBTagsSet()
 {
 }
 
-CBTagsSet::CBTagsSet(const CBTagsSet &set)
-{
-    _tagsList = set._tagsList;
-}
-
 CBTagsSet::CBTagsSet(QStringList list)
 {
     _tagsList = list;

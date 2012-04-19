@@ -10,12 +10,6 @@ CBMenuItem::CBMenuItem(CBDish &dish)
     _dish = dish;
 }
 
-CBMenuItem::CBMenuItem(const CBMenuItem& item)
-{
-    _dish = item._dish;
-    _iconId = item._iconId;
-}
-
 bool CBMenuItem::isTagContained(QString tag)
 {
     return _dish.isTagContained(tag);

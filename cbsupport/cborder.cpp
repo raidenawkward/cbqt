@@ -6,11 +6,6 @@ CBOrder::CBOrder()
 
 }
 
-CBOrder::CBOrder(const CBOrder &order)
-{
-    setOrder(order);
-}
-
 bool CBOrder::operator ==(CBOrder order)
 {
     return getId().equals(order.getId());

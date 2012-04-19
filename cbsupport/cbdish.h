@@ -21,7 +21,6 @@ class CBDish
 {
 public:
     CBDish();
-    CBDish(const CBDish &dish);
 
     static bool setDishAttr(CBDish &dish, const QString attr, const QString value);
 

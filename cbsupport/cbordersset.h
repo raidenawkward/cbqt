@@ -8,7 +8,6 @@ class CBOrdersSet : public CBIFSetHandler<CBOrder*>
 {
 public:
     CBOrdersSet();
-    CBOrdersSet(const CBOrdersSet &set);
 
     virtual bool add(CBOrder* item);
     virtual CBOrder* get(int index);

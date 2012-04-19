@@ -1,14 +1,10 @@
 #include "cbdish.h"
+#include <QDebug>
 
 CBDish::CBDish()
     :_price(0.0),
       _score(0.0)
 {
-}
-
-CBDish::CBDish(const CBDish &dish)
-{
-    setDish(dish);
 }
 
 void CBDish::setDish(CBDish dish)

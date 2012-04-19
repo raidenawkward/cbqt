@@ -13,7 +13,7 @@ public:
 
     virtual bool onTagDetected(QString tag, QString content, const QXmlStreamAttributes);
 
-    CBDish getDish() { return _dish; }
+    CBDish& getDish() { return _dish; }
     bool parse();
 
 private:

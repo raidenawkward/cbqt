@@ -6,11 +6,6 @@ CBMenuItemsSet::CBMenuItemsSet()
 
 }
 
-CBMenuItemsSet::CBMenuItemsSet(const CBMenuItemsSet &set)
-{
-    this->_itemList = set._itemList;
-}
-
 bool CBMenuItemsSet::add(CBMenuItem* item)
 {
     if (this->contains(item))

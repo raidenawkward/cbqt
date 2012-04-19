@@ -8,7 +8,6 @@ class CBId
 public:
     CBId();
     CBId(QString id);
-    CBId(const CBId &id);
 
     void setId(QString id);
     void setId(CBId id);

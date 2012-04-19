@@ -9,7 +9,6 @@ class CBTagsSet : public CBIFSetHandler<QString>
 {
 public:
     CBTagsSet();
-    CBTagsSet(const CBTagsSet &set);
     CBTagsSet(QStringList list);
 
     bool add(QString item);
