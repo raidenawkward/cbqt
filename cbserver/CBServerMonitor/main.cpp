@@ -3,6 +3,8 @@
 #include "mainwindow.h"
 #include "cbengine.h"
 
+#define CB_DEFAULT_CODED "utf8"
+
 CBEngine* initEngine();
 
 int main(int argc, char *argv[])
@@ -11,7 +13,7 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
-    QTextCodec *tc = QTextCodec::codecForName("utf8");
+    QTextCodec *tc = QTextCodec::codecForName(CB_DEFAULT_CODED);
     QTextCodec::setCodecForCStrings(tc);
     QTextCodec::setCodecForTr(tc);
 

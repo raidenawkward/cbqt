@@ -6,6 +6,15 @@ CBMenuItemsSet::CBMenuItemsSet()
 
 }
 
+CBMenuItemsSet::~CBMenuItemsSet()
+{
+    for (int i = 0; i < _itemList.count(); ++i)
+    {
+        if (_itemList.at(i))
+            delete _itemList.at(i);
+    }
+}
+
 bool CBMenuItemsSet::add(CBMenuItem* item)
 {
     if (this->contains(item))

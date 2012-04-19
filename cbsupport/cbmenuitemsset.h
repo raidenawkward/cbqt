@@ -10,6 +10,7 @@ class CBMenuItemsSet : public CBIFSetHandler<CBMenuItem*>
 {
 public:
     CBMenuItemsSet();
+    virtual ~CBMenuItemsSet();
 
     virtual bool add(CBMenuItem* item);
     virtual CBMenuItem* get(int index);

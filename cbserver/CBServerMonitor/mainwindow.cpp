@@ -5,6 +5,7 @@
 #include "cbmenuitemsset.h"
 
 #include <QMessageBox>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,8 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _engine(NULL)
 {
     ui->setupUi(this);
-
-    initTabWidget();
     refreshMenuItemList();
 }
 
@@ -81,37 +80,54 @@ QTableWidgetItem* MainWindow::generateTableItem(CBMenuItem *item, DISH_TABLE_HEA
 
 QString MainWindow::generateTableString(DISH_TABLE_HEADER header)
 {
+    QString res = QString();
     switch (header)
     {
     case DISH_TABLE_ID:
-        return tr("编号");
+        res = tr("编号");
+        break;
     case DISH_TABLE_NAME:
-        return tr("名称");
+        res = tr("名称");
+        break;
     case DISH_TABLE_PRICE:
-        return tr("单价");
+        res = tr("单价");
+        break;
     case DISH_TABLE_SCORE:
-        return tr("评分");
+        res = tr("评分");
+        break;
     case DISH_TABLE_TAGS:
-        return tr("标签");
+        res = tr("标签");
+        break;
     case DISH_TABLE_SUMMARY:
-        return tr("简介");
+        res = tr("简介");
+        break;
     case DISH_TABLE_DETAIL:
-        return tr("详细介绍");
+        res = tr("详细介绍");
+        break;
     case DISH_TABLE_THUMB:
-        return tr("缩略图");
+        res = tr("缩略图");
+        break;
     case DISH_TABLE_PICTURE:
-        return tr("大图片");
+        res = tr("大图片");
+        break;
     case DISH_TABLE_UNKNOWN:
     default:
         break;
     }
 
-    return QString();
+    return res;
 }
 
 void MainWindow::refreshTabWidget()
 {
     ui->tableWidget->clear();
+    initTabWidget();
+
+    if (!_engine)
+        return;
+
+    if (!_engine->getMenuItemsSet())
+        return;
 
     int rowCount = _engine->getMenuItemsSet()->count();
     ui->tableWidget->setRowCount(rowCount);
