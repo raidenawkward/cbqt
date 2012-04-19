@@ -1,13 +1,9 @@
 #include "cbmenuitemsset.h"
+#include <QDebug>
 
 CBMenuItemsSet::CBMenuItemsSet()
 {
 
-}
-
-CBMenuItemsSet::CBMenuItemsSet(CBMenuItemsSet &set)
-{
-    this->_itemList = set.getItemList();
 }
 
 CBMenuItemsSet::CBMenuItemsSet(const CBMenuItemsSet &set)

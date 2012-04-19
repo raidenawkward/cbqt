@@ -10,12 +10,6 @@ CBMenuItem::CBMenuItem(CBDish &dish)
     _dish = dish;
 }
 
-CBMenuItem::CBMenuItem(CBMenuItem& item)
-{
-    _dish = item.getDish();
-    _iconId = item.getIconId();
-}
-
 CBMenuItem::CBMenuItem(const CBMenuItem& item)
 {
     CBMenuItem newItem = item;

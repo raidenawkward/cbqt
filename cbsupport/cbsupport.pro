@@ -10,7 +10,7 @@ TARGET = cbsupport
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES += cbsupport.cpp \
+SOURCES += \
     cbtagsset.cpp \
     cbid.cpp \
     cbdish.cpp \
@@ -20,7 +20,7 @@ SOURCES += cbsupport.cpp \
     cbmenuitemsset.cpp \
     cbordersset.cpp
 
-HEADERS += cbsupport.h \
+HEADERS += \
     cbifsethandler.h \
     cbtagsset.h \
     cbid.h \

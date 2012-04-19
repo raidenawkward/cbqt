@@ -6,7 +6,7 @@ CBOrder::CBOrder()
 
 }
 
-CBOrder::CBOrder(CBOrder &order)
+CBOrder::CBOrder(const CBOrder &order)
 {
     setOrder(order);
 }

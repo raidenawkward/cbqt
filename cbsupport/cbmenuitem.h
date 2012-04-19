@@ -9,7 +9,6 @@ class CBMenuItem
 public:
     CBMenuItem();
     CBMenuItem(const CBMenuItem& item);
-    CBMenuItem(CBMenuItem& item);
     CBMenuItem(CBDish &dish);
 
     bool isTagContained(QString tag);

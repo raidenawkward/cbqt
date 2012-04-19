@@ -9,9 +9,10 @@ CBId::CBId(QString id)
     setId(id);
 }
 
-CBId::CBId(CBId &id)
+CBId::CBId(const CBId &id)
 {
-    setId(id);
+    CBId newId = id;
+    setId(newId);
 }
 
 void CBId::setId(QString id)

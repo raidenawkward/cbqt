@@ -4,11 +4,6 @@ CBOrdersSet::CBOrdersSet()
 {
 }
 
-CBOrdersSet::CBOrdersSet(CBOrdersSet &set)
-{
-    this->_itemList = set.getItemList();
-}
-
 CBOrdersSet::CBOrdersSet(const CBOrdersSet &set)
 {
     CBOrdersSet s = set;

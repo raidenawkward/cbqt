@@ -33,7 +33,7 @@ bool CBCustomer::equals(CBCustomer customer)
     return (getId().equals(customer.getId()));
 }
 
-CBCustomer& CBCustomer::operator = (CBCustomer customer)
+CBCustomer& CBCustomer::operator = (CBCustomer &customer)
 {
     _id = customer.getId();
     _name = customer.getName();

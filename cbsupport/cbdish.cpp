@@ -12,11 +12,6 @@ CBDish::CBDish(const CBDish &dish)
     setDish(newDish);
 }
 
-CBDish::CBDish(CBDish &dish)
-{
-    setDish(dish);
-}
-
 void CBDish::setDish(CBDish& dish)
 {
     setId(dish.getId());
