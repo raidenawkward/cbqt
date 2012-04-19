@@ -40,8 +40,8 @@ bool CBDishesScanner::onFileDetected(QFileInfo file, int depth)
         return false;
 
     CBDish dish = parser.getDish();
-//    CBMenuItem *item = new CBMenuItem(dish);
-//    this->_menuItemSet.add(item);
+    CBMenuItem *item = new CBMenuItem(dish);
+    this->_menuItemSet.add(item);
 
     return true;
 }
