@@ -1,6 +1,7 @@
 #include "cbdishesscanner.h"
 #include "cbdishparser.h"
 #include "cbmenuitem.h"
+#include <QDebug>
 
 CBDishesScanner::CBDishesScanner()
 {
@@ -38,9 +39,8 @@ bool CBDishesScanner::onFileDetected(QFileInfo file, int depth)
     if (!parser.parse())
         return false;
 
-//    CBDish dish = parser.getDish();
+    CBDish dish = parser.getDish();
 //    CBMenuItem *item = new CBMenuItem(dish);
-
 //    this->_menuItemSet.add(item);
 
     return true;

@@ -10,6 +10,7 @@
 #define CBDISH_TAG_PRICE "price"
 #define CBDISH_TAG_TAGS "tags"
 #define CBDISH_TAG_TAGS_SPLITER ","
+#define CBDISH_TAG_TAG "tag"
 #define CBDISH_TAG_SCORE "score"
 #define CBDISH_TAG_SUMMARIZE "summary"
 #define CBDISH_TAG_DETAIL "detail"
@@ -37,7 +38,7 @@ public:
     bool equals(CBDish dish);
 
     CBId& getId() { return _id; }
-    void setId(CBId id) { _id = id; }
+    void setId(CBId &id) { _id = id; }
     QString getName() { return _name; }
     void setName(QString name) { _name = name; }
     float getPrice() { return _price; }

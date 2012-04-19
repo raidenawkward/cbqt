@@ -1,6 +1,7 @@
 #include "cbdishparser.h"
 #include "cbid.h"
 #include <QStringList>
+#include <QDebug>
 
 CBDishParser::CBDishParser()
     : CBXmlReader()
@@ -30,11 +31,17 @@ bool CBDishParser::onTagDetected(QString tag, QString content, const QXmlStreamA
         float price = content.toFloat();
         _dish.setPrice(price);
     }
+#if 0
     else if (tag.toLower() == CBDISH_TAG_TAGS)
     {
         QStringList list = content.split(CBDISH_TAG_TAGS_SPLITER);
         for (int i = 0; i < list.count(); ++i)
             _dish.addTag(list.at(i));
+    }
+#endif
+    else if (tag.toLower() == CBDISH_TAG_TAG)
+    {
+        _dish.addTag(content);
     }
     else if (tag.toLower() == CBDISH_TAG_SCORE)
     {
@@ -59,7 +66,7 @@ bool CBDishParser::onTagDetected(QString tag, QString content, const QXmlStreamA
     }
     else
     {
-        return false;
+
     }
 
     return true;

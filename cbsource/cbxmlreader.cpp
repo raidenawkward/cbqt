@@ -66,7 +66,6 @@ bool CBXmlReader::readAll()
     QString text = "";
 
     while(!_streamReader->atEnd()) {
-
         switch (_streamReader->tokenType())
         {
         case QXmlStreamReader::NoToken:
@@ -84,7 +83,8 @@ bool CBXmlReader::readAll()
         case QXmlStreamReader::EndElement:
             if (_streamReader->name().toString().compare(tag) != 0)
             {
-                goto error;
+                _streamReader->readNext();
+                continue;
             }
 
             if (_callback) {
@@ -108,6 +108,7 @@ bool CBXmlReader::readAll()
 
 error:
     if (_streamReader->hasError()) {
+        qDebug()<<_streamReader->errorString();
     }
     return false;
 }

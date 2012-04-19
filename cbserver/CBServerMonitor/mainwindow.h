@@ -5,7 +5,7 @@
 #include <QTableWidgetItem>
 #include "cbmenuitemsset.h"
 
-#define CBSERVERMONITOR_DISHES_DIR "/home/raiden/workspace/android/charleybrown/source/dishes"
+#define CBSERVERMONITOR_DISHES_DIR "dishes"
 
 enum DISH_TABLE_HEADER
 {
