@@ -32,22 +32,31 @@ QTableWidgetItem* MainWindow::generateTableItem(CBDish &dish, DISH_TABLE_HEADER 
     {
     case DISH_TABLE_ID:
         content = dish.getId().toString();
+        break;
     case DISH_TABLE_NAME:
         content = dish.getName();
+        break;
     case DISH_TABLE_PRICE:
         content = QString::number(dish.getPrice());
+        break;
     case DISH_TABLE_SCORE:
         content = QString::number(dish.getScore());
+        break;
     case DISH_TABLE_TAGS:
         content = dish.getTagsSet().toString(CBDISH_TAG_TAGS_SPLITER);
+        break;
     case DISH_TABLE_SUMMARY:
         content = dish.getSummary();
+        break;
     case DISH_TABLE_DETAIL:
         content = dish.getDetail();
+        break;
     case DISH_TABLE_THUMB:
         content = dish.getThumb();
+        break;
     case DISH_TABLE_PICTURE:
         content = dish.getPicture();
+        break;
     case DISH_TABLE_UNKNOWN:
     default:
         break;
