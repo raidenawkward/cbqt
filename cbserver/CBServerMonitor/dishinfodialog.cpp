@@ -5,7 +5,8 @@
 
 DishInfoDialog::DishInfoDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::DishInfoDialog)
+    ui(new Ui::DishInfoDialog),
+    _menuItem(NULL)
 {
     ui->setupUi(this);
     QRegExp regx("[0-9]*[.]?[0-9]*");
@@ -41,4 +42,20 @@ void DishInfoDialog::on_toolButtonPicture_clicked()
                                                     tr("图片文件 (*.jpg *.png *.bmp)"));
 
     ui->lineEditPicture->setText(fileName);
+}
+
+void DishInfoDialog::setMenuItem(CBMenuItem* item)
+{
+    if (!item)
+        return;
+
+    CBDish dish = item->getDish();
+
+    ui->lineEditId->setText(dish.getId().toString());
+    ui->lineEditName->setText(dish.getName());
+}
+
+CBMenuItem* DishInfoDialog::getMenuItem()
+{
+    return _menuItem;
 }

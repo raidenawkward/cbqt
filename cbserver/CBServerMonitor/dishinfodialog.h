@@ -2,6 +2,7 @@
 #define DISHINFODIALOG_H
 
 #include <QDialog>
+#include "cbmenuitem.h"
 
 namespace Ui {
 class DishInfoDialog;
@@ -15,6 +16,9 @@ public:
     explicit DishInfoDialog(QWidget *parent = 0);
     ~DishInfoDialog();
 
+    void setMenuItem(CBMenuItem* item);
+    CBMenuItem* getMenuItem();
+
 private slots:
     void on_toolButtonThumb_clicked();
 
@@ -22,6 +26,7 @@ private slots:
 
 private:
     Ui::DishInfoDialog *ui;
+    CBMenuItem* _menuItem;
 };
 
 #endif // DISHINFODIALOG_H

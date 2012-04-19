@@ -3,6 +3,8 @@
 #include "dishinfodialog.h"
 #include "cbdishesscanner.h"
 
+#include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -18,10 +20,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_buttonAdd_clicked()
+void MainWindow::showEvent(QShowEvent *)
 {
-    DishInfoDialog dialog;
-    dialog.exec();
+    this->refreshTabWidget();
 }
 
 QTableWidgetItem* MainWindow::generateTableItem(CBMenuItem *item, DISH_TABLE_HEADER header)
@@ -103,6 +104,8 @@ QString MainWindow::generateTableString(DISH_TABLE_HEADER header)
 
 void MainWindow::refreshTabWidget()
 {
+    ui->tableWidget->clear();
+
     int rowCount = _menuItemSet.count();
     ui->tableWidget->setRowCount(rowCount);
 
@@ -118,6 +121,8 @@ void MainWindow::refreshTabWidget()
             ui->tableWidget->setItem(i, j, tabItem);
         }
     }
+
+    ui->tableWidget->setCurrentCell(0, 0);
 }
 
 void MainWindow::initTabWidget()
@@ -143,13 +148,48 @@ void MainWindow::refreshMenuItemList()
     this->_menuItemSet = scanner.getMenuItemSet();
 }
 
-void MainWindow::on_buttonEdit_clicked()
+void MainWindow::on_buttonAdd_clicked()
 {
     DishInfoDialog dialog;
     dialog.exec();
 }
 
-void MainWindow::showEvent(QShowEvent *)
+void MainWindow::on_buttonEdit_clicked()
 {
-    this->refreshTabWidget();
+    DishInfoDialog dialog;
+    int index = ui->tableWidget->currentRow();
+    CBMenuItem *item = _menuItemSet.get(index);
+    dialog.setMenuItem(item);
+    dialog.exec();
+}
+
+void MainWindow::on_buttonRefresh_clicked()
+{
+    refreshMenuItemList();
+    refreshTabWidget();
+}
+
+void MainWindow::on_tableWidget_cellDoubleClicked(int, int)
+{
+    on_buttonEdit_clicked();
+}
+
+void MainWindow::on_buttonRemove_clicked()
+{
+    int index = ui->tableWidget->currentRow();
+    CBMenuItem *item = _menuItemSet.get(index);
+
+    QString content = tr("确定要删除\"");
+    content += item->getDish().getName();
+    content += tr("\"的信息?");
+    QMessageBox::StandardButton res = QMessageBox::question(this,
+                                     tr("删除确认"),
+                                     content,
+                                     QMessageBox::Yes | QMessageBox::No,
+                                     QMessageBox::Yes);
+
+    if(res == QMessageBox::Yes)
+    {
+
+    }
 }
