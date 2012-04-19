@@ -41,6 +41,7 @@ bool CBDishesScanner::onFileDetected(QFileInfo file, int depth)
 
     CBDish dish = parser.getDish();
     CBMenuItem *item = new CBMenuItem(dish);
+    item->setRecordPath(file.absoluteFilePath());
 
     if (!this->_menuItemSet.add(item))
         return false;

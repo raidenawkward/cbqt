@@ -65,6 +65,16 @@ void CBMenuItem::setIconId(int id)
     _iconId = id;
 }
 
+QString CBMenuItem::getRecordPath()
+{
+    return _recordPath;
+}
+
+void CBMenuItem::setRecordPath(const QString path)
+{
+    _recordPath = path;
+}
+
 //CBMenuItem& CBMenuItem::operator = (CBMenuItem item)
 //{
 //    _dish = item.getDish();

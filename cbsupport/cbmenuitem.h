@@ -22,10 +22,13 @@ public:
     void setDish(CBDish dish);
     int getIconId();
     void setIconId(int id);
+    QString getRecordPath();
+    void setRecordPath(const QString path);
 
 private:
     CBDish _dish;
     int _iconId;
+    QString _recordPath;
 };
 
 #endif // CBMENUITEM_H

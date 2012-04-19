@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTableWidgetItem>
 #include "cbmenuitemsset.h"
+#include "cbmenuitem.h"
 
 #define CBSERVERMONITOR_DISHES_DIR "dishes"
 
@@ -39,7 +40,7 @@ protected:
     void showEvent(QShowEvent *);
 
     static QString generateTableString(DISH_TABLE_HEADER header);
-    static QTableWidgetItem* generateTableItem(CBDish &dish, DISH_TABLE_HEADER header);
+    static QTableWidgetItem* generateTableItem(CBMenuItem *item, DISH_TABLE_HEADER header);
 
 private slots:
     void on_buttonAdd_clicked();

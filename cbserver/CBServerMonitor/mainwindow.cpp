@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "dishinfodialog.h"
 #include "cbdishesscanner.h"
-#include "cbmenuitem.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,9 +24,14 @@ void MainWindow::on_buttonAdd_clicked()
     dialog.exec();
 }
 
-QTableWidgetItem* MainWindow::generateTableItem(CBDish &dish, DISH_TABLE_HEADER header)
+QTableWidgetItem* MainWindow::generateTableItem(CBMenuItem *item, DISH_TABLE_HEADER header)
 {
+    if (!item)
+        return NULL;
+
+    CBDish dish = item->getDish();
     QString content;
+
     switch (header)
     {
     case DISH_TABLE_ID:
@@ -108,11 +112,9 @@ void MainWindow::refreshTabWidget()
         if (!item)
             continue;
 
-        CBDish dish = item->getDish();
-
         for (int j = DISH_TABLE_ID; j < DISH_TABLE_UNKNOWN; ++j)
         {
-            QTableWidgetItem *tabItem = generateTableItem(dish, (DISH_TABLE_HEADER)j);
+            QTableWidgetItem *tabItem = generateTableItem(item, (DISH_TABLE_HEADER)j);
             ui->tableWidget->setItem(i, j, tabItem);
         }
     }
