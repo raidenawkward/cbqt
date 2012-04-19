@@ -172,12 +172,14 @@ void MainWindow::refreshMenuItemList()
 void MainWindow::on_buttonAdd_clicked()
 {
     DishInfoDialog dialog;
+    dialog.setWindowTitle(tr("添加"));
     dialog.exec();
 }
 
 void MainWindow::on_buttonEdit_clicked()
 {
     DishInfoDialog dialog;
+    dialog.setWindowTitle(tr("编辑"));
     int index = ui->tableWidget->currentRow();
     CBMenuItem *item = _engine->getMenuItemsSet()->get(index);
     dialog.setMenuItem(item);
