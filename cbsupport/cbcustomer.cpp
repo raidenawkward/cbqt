@@ -18,6 +18,13 @@ CBCustomer::CBCustomer(QString string)
     this->setNumOfPeople(QString(list[2]).toInt());
 }
 
+CBCustomer::CBCustomer(const CBCustomer &customer)
+{
+    _id = customer._id;
+    _name = customer._name;
+    _numOfPeople = customer._numOfPeople;
+}
+
 bool CBCustomer::operator == (CBCustomer customer)
 {
     return (getId().equals(customer.getId()));

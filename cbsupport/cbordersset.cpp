@@ -6,8 +6,7 @@ CBOrdersSet::CBOrdersSet()
 
 CBOrdersSet::CBOrdersSet(const CBOrdersSet &set)
 {
-    CBOrdersSet s = set;
-    this->_itemList = s.getItemList();
+    this->_itemList = set._itemList;
 }
 
 bool CBOrdersSet::add(CBOrder* item)

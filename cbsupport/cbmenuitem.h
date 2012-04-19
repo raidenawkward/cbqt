@@ -19,10 +19,10 @@ public:
     bool equals(CBMenuItem item);
 //    CBMenuItem& operator =(CBMenuItem item);
 
-    CBDish& getDish() { return _dish; }
-    void setDish(CBDish dish) { _dish = dish; }
-    int getIconId() { return _iconId; }
-    void setIconId(int id) { _iconId = id; }
+    CBDish getDish();
+    void setDish(CBDish dish);
+    int getIconId();
+    void setIconId(int id);
 
 private:
     CBDish _dish;

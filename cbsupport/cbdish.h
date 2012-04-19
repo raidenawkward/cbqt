@@ -56,7 +56,7 @@ public:
     void setPicture(QString picture) { _picture = picture; }
 
 private:
-    void setDish(CBDish &dish);
+    void setDish(CBDish dish);
 
 private:
     CBId _id;

@@ -8,21 +8,20 @@ CBDish::CBDish()
 
 CBDish::CBDish(const CBDish &dish)
 {
-    CBDish newDish = dish;
-    setDish(newDish);
+    setDish(dish);
 }
 
-void CBDish::setDish(CBDish& dish)
+void CBDish::setDish(CBDish dish)
 {
-    setId(dish.getId());
-    setName(dish.getName());
-    setPrice(dish.getPrice());
-    setTagsSet(dish.getTagsSet());
-    setScore(dish.getScore());
-    setSummary(dish.getSummary());
-    setDetail(dish.getDetail());
-    setThumb(dish.getThumb());
-    setPicture(dish.getPicture());
+    setId(dish._id);
+    setName(dish._name);
+    setPrice(dish._price);
+    setTagsSet(dish._tagsSet);
+    setScore(dish._score);
+    setSummary(dish._summary);
+    setDetail(dish._detail);
+    setThumb(dish._thumb);
+    setPicture(dish._picture);
 }
 
 bool CBDish::isTagContained(QString tag)

@@ -35,17 +35,17 @@ CBOrder& CBOrder::operator=(CBOrder order)
 
 void CBOrder::setOrder(CBOrder order)
 {
-    setId(order.getId());
-    setLocation(order.getLocation());
-    setCustomer(order.getCustomer());
-    setDisabledTagsSet(order.getDisabledTagsSet());
-    setDiscount(order.getDiscount());
-    setSummation(order.getSummation());
-    setCreatedTime(order.getCreatedTime());
-    setSubmitedTime(order.getSubmitedTime());
-    setMemo(order.getMemo());
-    setRecordSavedPath(order.getRecordSavedPath());
-    setStatus(order.getStatus());
+    setId(order._id);
+    setLocation(order._location);
+    setCustomer(order._customer);
+    setDisabledTagsSet(order._disabledTagsSet);
+    setDiscount(order._discount);
+    setSummation(order._summation);
+    setCreatedTime(order._createdTime);
+    setSubmitedTime(order._submitedTime);
+    setMemo(order._memo);
+    setRecordSavedPath(order._recordSavedPath);
+    setStatus(order._status);
 }
 
 bool CBOrder::addItem(CBMenuItem item, int count)

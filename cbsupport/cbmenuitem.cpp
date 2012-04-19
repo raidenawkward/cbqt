@@ -12,9 +12,8 @@ CBMenuItem::CBMenuItem(CBDish &dish)
 
 CBMenuItem::CBMenuItem(const CBMenuItem& item)
 {
-    CBMenuItem newItem = item;
-    _dish = newItem.getDish();
-    _iconId = newItem.getIconId();
+    _dish = item._dish;
+    _iconId = item._iconId;
 }
 
 bool CBMenuItem::isTagContained(QString tag)
@@ -50,6 +49,26 @@ bool CBMenuItem::equals(CBMenuItem item)
         return false;
 
     return true;
+}
+
+CBDish CBMenuItem::getDish()
+{
+    return this->_dish;
+}
+
+void CBMenuItem::setDish(CBDish dish)
+{
+    _dish = dish;
+}
+
+int CBMenuItem::getIconId()
+{
+    return _iconId;
+}
+
+void CBMenuItem::setIconId(int id)
+{
+    _iconId = id;
 }
 
 //CBMenuItem& CBMenuItem::operator = (CBMenuItem item)

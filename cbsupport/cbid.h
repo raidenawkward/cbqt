@@ -12,7 +12,7 @@ public:
 
     void setId(QString id);
     void setId(CBId id);
-    QString& getId();
+    QString getId();
     QString toString();
 
     bool operator == (CBId id);

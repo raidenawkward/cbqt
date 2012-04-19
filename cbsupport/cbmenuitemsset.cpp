@@ -8,8 +8,7 @@ CBMenuItemsSet::CBMenuItemsSet()
 
 CBMenuItemsSet::CBMenuItemsSet(const CBMenuItemsSet &set)
 {
-    CBMenuItemsSet s = set;
-    this->_itemList = s.getItemList();
+    this->_itemList = set._itemList;
 }
 
 bool CBMenuItemsSet::add(CBMenuItem* item)
