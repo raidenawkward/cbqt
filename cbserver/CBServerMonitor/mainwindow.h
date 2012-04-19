@@ -5,6 +5,7 @@
 #include <QTableWidgetItem>
 #include "cbengine.h"
 #include "cbmenuitem.h"
+#include "cbglobal.h"
 
 #define CBSERVERMONITOR_DISHES_DIR "dishes"
 

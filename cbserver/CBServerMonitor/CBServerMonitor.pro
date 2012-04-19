@@ -12,10 +12,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    dishinfodialog.cpp
+    dishinfodialog.cpp \
+    cbglobal.cpp
 
 HEADERS  += mainwindow.h \
-    dishinfodialog.h
+    dishinfodialog.h \
+    cbglobal.h
 
 FORMS    += mainwindow.ui \
     dishinfodialog.ui

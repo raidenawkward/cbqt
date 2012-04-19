@@ -1,7 +1,8 @@
 #include "dishinfodialog.h"
 #include "ui_dishinfodialog.h"
 #include <QFileDialog>
-
+#include <QPixmap>
+#include <QDebug>
 
 DishInfoDialog::DishInfoDialog(QWidget *parent) :
     QDialog(parent),
@@ -44,6 +45,20 @@ void DishInfoDialog::on_toolButtonPicture_clicked()
     ui->lineEditPicture->setText(fileName);
 }
 
+void DishInfoDialog::setTags(CBTagsSet set)
+{
+    for (int i = 0; i < set.count(); ++i)
+    {
+        ui->listWidgetTags->addItem(set.get(i));
+    }
+}
+
+void DishInfoDialog::setPreviewImage(const QString path)
+{
+    QPixmap pixmap(path, getFileExt(path).toUtf8().constData());
+    ui->labelPreview->setPixmap(pixmap);
+}
+
 void DishInfoDialog::setMenuItem(CBMenuItem* item)
 {
     if (!item)
@@ -53,6 +68,19 @@ void DishInfoDialog::setMenuItem(CBMenuItem* item)
 
     ui->lineEditId->setText(dish.getId().toString());
     ui->lineEditName->setText(dish.getName());
+
+    setTags(dish.getTagsSet());
+
+    ui->lineEditPrice->setText(QString::number(dish.getPrice()));
+    ui->lineEditScore->setText(QString::number(dish.getScore()));
+    ui->lineEditSummary->setText(dish.getSummary());
+    ui->textEditDetail->setText(dish.getDetail());
+    ui->lineEditThumb->setText(dish.getThumb());
+    ui->lineEditPicture->setText(dish.getPicture());
+
+    QString thumbPath = getFileDir(item->getRecordPath()) + dish.getThumb();
+    qDebug()<<thumbPath;
+    setPreviewImage(thumbPath);
 }
 
 CBMenuItem* DishInfoDialog::getMenuItem()
