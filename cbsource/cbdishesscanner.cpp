@@ -4,11 +4,13 @@
 #include <QDebug>
 
 CBDishesScanner::CBDishesScanner()
+    : _menuItemSet(NULL)
 {
     _pathWalker.setCallback(this);
 }
 
 CBDishesScanner::CBDishesScanner(QString root)
+    : _menuItemSet(NULL)
 {
     _pathWalker.setCallback(this);
     this->setRoot(root);
@@ -43,8 +45,11 @@ bool CBDishesScanner::onFileDetected(QFileInfo file, int depth)
     CBMenuItem *item = new CBMenuItem(dish);
     item->setRecordPath(file.absoluteFilePath());
 
-    if (!this->_menuItemSet.add(item))
-        return false;
+    if (_menuItemSet)
+    {
+        if (!this->_menuItemSet->add(item))
+            return false;
+    }
 
     return true;
 }
@@ -56,11 +61,15 @@ void CBDishesScanner::scan()
 
 void CBDishesScanner::scan(const QString root)
 {
+    if (_menuItemSet)
+        delete _menuItemSet;
+
+    _menuItemSet = new CBMenuItemsSet();
     _pathWalker.setRoot(root);
     _pathWalker.go();
 }
 
 void CBDishesScanner::clear()
 {
-    this->_menuItemSet.clear();
+    this->_menuItemSet->clear();
 }

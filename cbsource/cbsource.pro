@@ -20,14 +20,16 @@ SOURCES += \
     cbxmlreader.cpp \
     cbpathwalker.cpp \
     cbdishesscanner.cpp \
-    cbdishparser.cpp
+    cbdishparser.cpp \
+    cbengine.cpp
 
 HEADERS += \
     cbxmlwriter.h \
     cbxmlreader.h \
     cbpathwalker.h \
     cbdishesscanner.h \
-    cbdishparser.h
+    cbdishparser.h \
+    cbengine.h
 unix:!symbian {
     maemo5 {
         target.path = /opt/usr/lib

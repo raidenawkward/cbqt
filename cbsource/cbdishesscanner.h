@@ -22,10 +22,10 @@ public:
 
     QString getRoot() { return _root; }
     void setRoot(const QString root) { _root = root; }
-    CBMenuItemsSet getMenuItemSet() { return _menuItemSet; }
+    CBMenuItemsSet* getMenuItemSet() { return _menuItemSet; }
 
 private:
-    CBMenuItemsSet _menuItemSet;
+    CBMenuItemsSet* _menuItemSet;
     QString _root;
     CBPathWalker _pathWalker;
 };

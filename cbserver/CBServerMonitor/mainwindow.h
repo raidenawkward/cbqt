@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QTableWidgetItem>
-#include "cbmenuitemsset.h"
+#include "cbengine.h"
 #include "cbmenuitem.h"
 
 #define CBSERVERMONITOR_DISHES_DIR "dishes"
@@ -34,6 +34,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void setEngine(CBEngine* engine);
     void refreshTabWidget();
 
 protected:
@@ -56,7 +57,7 @@ private:
 
 private:
     Ui::MainWindow *ui;
-    CBMenuItemsSet _menuItemSet;
+    CBEngine *_engine;
 };
 
 #endif // MAINWINDOW_H

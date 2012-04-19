@@ -2,12 +2,14 @@
 #include "ui_mainwindow.h"
 #include "dishinfodialog.h"
 #include "cbdishesscanner.h"
+#include "cbmenuitemsset.h"
 
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    _engine(NULL)
 {
     ui->setupUi(this);
 
@@ -18,6 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setEngine(CBEngine* engine)
+{
+    _engine = engine;
 }
 
 void MainWindow::showEvent(QShowEvent *)
@@ -106,12 +113,12 @@ void MainWindow::refreshTabWidget()
 {
     ui->tableWidget->clear();
 
-    int rowCount = _menuItemSet.count();
+    int rowCount = _engine->getMenuItemsSet()->count();
     ui->tableWidget->setRowCount(rowCount);
 
     for (int i = 0; i < rowCount; ++i)
     {
-        CBMenuItem *item = _menuItemSet.get(i);
+        CBMenuItem *item = _engine->getMenuItemsSet()->get(i);
         if (!item)
             continue;
 
@@ -142,10 +149,8 @@ void MainWindow::initTabWidget()
 
 void MainWindow::refreshMenuItemList()
 {
-    CBDishesScanner scanner(CBSERVERMONITOR_DISHES_DIR);
-    scanner.scan();
-
-    this->_menuItemSet = scanner.getMenuItemSet();
+    if (_engine)
+        _engine->loadMenuItems(CBSERVERMONITOR_DISHES_DIR);
 }
 
 void MainWindow::on_buttonAdd_clicked()
@@ -158,7 +163,7 @@ void MainWindow::on_buttonEdit_clicked()
 {
     DishInfoDialog dialog;
     int index = ui->tableWidget->currentRow();
-    CBMenuItem *item = _menuItemSet.get(index);
+    CBMenuItem *item = _engine->getMenuItemsSet()->get(index);
     dialog.setMenuItem(item);
     dialog.exec();
 }
@@ -177,7 +182,7 @@ void MainWindow::on_tableWidget_cellDoubleClicked(int, int)
 void MainWindow::on_buttonRemove_clicked()
 {
     int index = ui->tableWidget->currentRow();
-    CBMenuItem *item = _menuItemSet.get(index);
+    CBMenuItem *item = _engine->getMenuItemsSet()->get(index);
 
     QString content = tr("确定要删除\"");
     content += item->getDish().getName();
