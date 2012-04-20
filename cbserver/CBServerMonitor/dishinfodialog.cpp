@@ -103,8 +103,8 @@ bool DishInfoDialog::checkResult()
 
 void DishInfoDialog::setPreviewImage(const QString path)
 {
-    qDebug()<<getFileExt(path).toUpper().toUtf8().constData();
     QPixmap pixmap(path, getFileExt(path).toUpper().toUtf8().constData());
+
     ui->labelPreview->setPixmap(pixmap);
 }
 
