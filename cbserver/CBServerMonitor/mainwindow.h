@@ -7,8 +7,6 @@
 #include "cbmenuitem.h"
 #include "cbglobal.h"
 
-#define CBSERVERMONITOR_DISHES_DIR "dishes"
-
 enum DISH_TABLE_HEADER
 {
     DISH_TABLE_ID = 0,

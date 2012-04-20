@@ -5,6 +5,7 @@
 #include "cbtagsset.h"
 #include <QString>
 
+#define CBDISH_TAG_DISH "dish"
 #define CBDISH_TAG_ID "id"
 #define CBDISH_TAG_NAME "name"
 #define CBDISH_TAG_PRICE "price"

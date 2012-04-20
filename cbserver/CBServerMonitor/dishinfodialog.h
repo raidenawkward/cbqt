@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QModelIndex>
 #include <QAbstractButton>
+#include <QStringList>
 #include "cbmenuitem.h"
 #include "cbglobal.h"
 
@@ -23,6 +24,9 @@ public:
     CBMenuItem* getMenuItem();
 
     bool isEdited();
+
+signals:
+    void sig_itemChanged(CBMenuItem *item);
 
 protected:
     void setPreviewImage(const QString path);
@@ -45,6 +49,8 @@ private slots:
 
 private:
     void setTags(CBTagsSet set);
+    QStringList getTags();
+    bool saveItem();
 
 private:
     Ui::DishInfoDialog *ui;

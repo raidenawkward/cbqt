@@ -2,6 +2,9 @@
 #define CBGLOBAL_H
 
 #include <QString>
+#include "cbmenuitem.h"
+
+#define CBSERVERMONITOR_DISHES_DIR "dishes"
 
 #ifdef win32
     #define CBPATH_SPLITOR "\\"
@@ -16,6 +19,13 @@ public:
     static QString getFileExt(const QString path);
     static bool copyDir(const QString src, const QString dest, bool override = false);
     static bool rmDir(const QString dir);
+
+    static bool saveMenuItem(CBMenuItem* item);
+    static bool updateMenuItem(CBMenuItem* oldItem, CBMenuItem* newItem);
+    static bool removeMenuItem(CBMenuItem *item);
+
+private:
+    static bool writeMenuItemXml(CBMenuItem* item);
 };
 
 #endif // CBGLOBAL_H

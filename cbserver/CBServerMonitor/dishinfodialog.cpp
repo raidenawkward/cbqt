@@ -62,6 +62,61 @@ void DishInfoDialog::setTags(CBTagsSet set)
     }
 }
 
+QStringList DishInfoDialog::getTags()
+{
+    QStringList res;
+    for (int i = 0; i < ui->listWidgetTags->count(); ++i)
+    {
+        res.append(ui->listWidgetTags->item(i)->text().trimmed());
+    }
+
+    return res;
+}
+
+bool DishInfoDialog::saveItem()
+{
+    CBDish dish;
+    CBId id(ui->lineEditId->text().trimmed());
+    dish.setId(id);
+    dish.setName(ui->lineEditName->text().trimmed());
+    dish.setPrice(ui->lineEditPrice->text().trimmed().toFloat());
+    dish.setScore(ui->lineEditScore->text().trimmed().toFloat());
+    dish.setSummary(ui->lineEditSummary->text().trimmed());
+    dish.setDetail(ui->textEditDetail->toPlainText().trimmed());
+    dish.setPicture(ui->lineEditPicture->text().trimmed());
+    dish.setThumb(ui->lineEditThumb->text().trimmed());
+
+    QStringList tagsList = this->getTags();
+    dish.setTags(tagsList);
+
+    CBMenuItem *newItem = new CBMenuItem(dish);
+    if (_menuItem)
+    {
+        newItem->setRecordPath(this->_menuItem->getRecordPath());
+        if (CBGlobal::updateMenuItem(_menuItem, newItem))
+        {
+            delete _menuItem;
+            _menuItem = newItem;
+        }
+        else
+            return false;
+    }
+    else
+    {
+        newItem->setRecordPath(QString(CBSERVERMONITOR_DISHES_DIR)
+                               + QString(CBPATH_SPLITOR)
+                               + id.toString()
+                               + QString(CBPATH_SPLITOR)
+                               + id.toString()
+                               + ".xml");
+        if (!CBGlobal::saveMenuItem(newItem))
+            return false;
+    }
+
+    _menuItem = newItem;
+    return true;
+}
+
 void DishInfoDialog::showWarning(const QString warning)
 {
     ui->labelWarning->setText(warning);
