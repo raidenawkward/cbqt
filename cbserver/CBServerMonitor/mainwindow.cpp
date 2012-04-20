@@ -169,10 +169,21 @@ void MainWindow::refreshMenuItemList()
         _engine->loadMenuItems(CBSERVERMONITOR_DISHES_DIR);
 }
 
+void MainWindow::slt_menuItemUpdate(CBMenuItem* item)
+{
+    if (!item)
+        return;
+    QModelIndex index = ui->tableWidget->currentIndex();
+    on_buttonRefresh_clicked();
+    ui->tableWidget->setCurrentIndex(index);
+}
+
 void MainWindow::on_buttonAdd_clicked()
 {
     DishInfoDialog dialog;
     dialog.setWindowTitle(tr("添加"));
+    dialog.setMenuItem(NULL);
+    connect(&dialog,SIGNAL(sig_itemChanged(CBMenuItem*)), this, SLOT(slt_menuItemUpdate(CBMenuItem*)));
     dialog.exec();
 }
 
@@ -183,6 +194,7 @@ void MainWindow::on_buttonEdit_clicked()
     int index = ui->tableWidget->currentRow();
     CBMenuItem *item = _engine->getMenuItemsSet()->get(index);
     dialog.setMenuItem(item);
+    connect(&dialog,SIGNAL(sig_itemChanged(CBMenuItem*)), this, SLOT(slt_menuItemUpdate(CBMenuItem*)));
     dialog.exec();
 }
 

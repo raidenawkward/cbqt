@@ -95,7 +95,6 @@ bool DishInfoDialog::saveItem()
         newItem->setRecordPath(this->_menuItem->getRecordPath());
         if (CBGlobal::updateMenuItem(_menuItem, newItem))
         {
-            delete _menuItem;
             _menuItem = newItem;
         }
         else
@@ -114,6 +113,8 @@ bool DishInfoDialog::saveItem()
     }
 
     _menuItem = newItem;
+    emit this->sig_itemChanged(newItem);
+
     return true;
 }
 
@@ -298,13 +299,19 @@ void DishInfoDialog::slt_save()
     if (!this->checkResult())
         return;
 
-    this->close();
+    if (saveItem())
+        this->close();
 }
 
 void DishInfoDialog::slt_apply()
 {
     if (!this->checkResult())
         return;
+
+    if (saveItem())
+    {
+        this->setMenuItem(_menuItem);
+    }
 }
 
 void DishInfoDialog::slt_cancel()

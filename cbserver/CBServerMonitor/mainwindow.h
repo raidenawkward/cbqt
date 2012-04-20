@@ -42,6 +42,9 @@ protected:
     static QString generateTableString(DISH_TABLE_HEADER header);
     static QTableWidgetItem* generateTableItem(CBMenuItem *item, DISH_TABLE_HEADER header);
 
+protected slots:
+    void slt_menuItemUpdate(CBMenuItem* item);
+
 private slots:
     void on_buttonAdd_clicked();
     void on_buttonEdit_clicked();

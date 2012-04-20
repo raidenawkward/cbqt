@@ -211,7 +211,7 @@ bool CBGlobal::writeMenuItemXml(CBMenuItem* item)
     for (int i = 0; i < tags.count(); ++i)
     {
         writer.writeStartElement(CBDISH_TAG_TAG);
-        writer.writeContent(item->getDish().getName());
+        writer.writeContent(tags.at(i));
         writer.writeEndElement();
     }
     writer.writeEndElement();
