@@ -41,6 +41,7 @@ void DishInfoDialog::on_toolButtonThumb_clicked()
                                                     tr("图片文件 (*.jpg *.png *.bmp)"));
 
     ui->lineEditThumb->setText(fileName);
+    this->setPreviewImage(fileName);
 }
 
 void DishInfoDialog::on_toolButtonPicture_clicked()
@@ -103,7 +104,7 @@ bool DishInfoDialog::checkResult()
 
 void DishInfoDialog::setPreviewImage(const QString path)
 {
-    QPixmap pixmap(path, getFileExt(path).toUpper().toUtf8().constData());
+    QPixmap pixmap(path, CBGlobal::getFileExt(path).toUpper().toUtf8().constData());
 
     ui->labelPreview->setPixmap(pixmap);
 }
@@ -127,8 +128,8 @@ void DishInfoDialog::setMenuItem(CBMenuItem* item)
     ui->lineEditSummary->setText(dish.getSummary());
     ui->textEditDetail->setText(dish.getDetail());
 
-    QString thumbPath = getFileDir(item->getRecordPath()) + dish.getThumb();
-    QString picturePath = getFileDir(item->getRecordPath()) + dish.getPicture();
+    QString thumbPath = CBGlobal::getFileDir(item->getRecordPath()) + dish.getThumb();
+    QString picturePath = CBGlobal::getFileDir(item->getRecordPath()) + dish.getPicture();
 
     ui->lineEditThumb->setText(thumbPath);
     ui->lineEditPicture->setText(picturePath);

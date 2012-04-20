@@ -9,7 +9,13 @@
     #define CBPATH_SPLITOR "/"
 #endif
 
-QString getFileDir(const QString path);
-QString getFileExt(const QString path);
+class CBGlobal
+{
+public:
+    static QString getFileDir(const QString path);
+    static QString getFileExt(const QString path);
+    static bool copyDir(const QString src, const QString dest, bool override = false);
+    static bool rmDir(const QString dir);
+};
 
 #endif // CBGLOBAL_H

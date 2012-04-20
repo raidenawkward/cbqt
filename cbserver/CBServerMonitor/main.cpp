@@ -1,6 +1,7 @@
 #include <QtGui/QApplication>
 #include <QTextCodec>
 #include "mainwindow.h"
+#include "cbglobal.h"
 #include "cbengine.h"
 
 #define CB_DEFAULT_CODED "utf8"
@@ -20,7 +21,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.setEngine(engine);
     w.show();
-    
+
     return a.exec();
 }
 
