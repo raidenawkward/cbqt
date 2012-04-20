@@ -22,6 +22,8 @@ public:
     void setMenuItem(CBMenuItem* item);
     CBMenuItem* getMenuItem();
 
+    bool isEdited();
+
 protected:
     void setPreviewImage(const QString path);
     bool checkResult();

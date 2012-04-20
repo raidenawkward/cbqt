@@ -144,6 +144,39 @@ CBMenuItem* DishInfoDialog::getMenuItem()
     return _menuItem;
 }
 
+bool DishInfoDialog::isEdited()
+{
+    if (!_menuItem)
+        return false;
+
+    CBDish dish = _menuItem->getDish();
+    if (ui->lineEditId->text().trimmed() != dish.getId().toString())
+        return true;
+
+    if (ui->lineEditName->text().trimmed() != dish.getName())
+        return true;
+
+    if (ui->lineEditPrice->text().trimmed().toFloat() != dish.getPrice())
+        return true;
+
+    if (ui->lineEditScore->text().trimmed().toFloat() != dish.getScore())
+        return true;
+
+    if (ui->lineEditSummary->text().trimmed().trimmed() != dish.getSummary())
+        return true;
+
+    if (ui->lineEditThumb->text().trimmed().trimmed() != dish.getThumb())
+        return true;
+
+    if (ui->lineEditPicture->text().trimmed() != dish.getPicture())
+        return true;
+
+    if (ui->textEditDetail->toPlainText() != dish.getDetail())
+        return true;
+
+    return false;
+}
+
 void DishInfoDialog::on_listWidgetTags_doubleClicked(const QModelIndex&)
 {
     on_buttonEdit_clicked();
