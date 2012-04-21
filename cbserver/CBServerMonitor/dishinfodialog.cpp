@@ -102,22 +102,20 @@ bool DishInfoDialog::saveItem()
     QStringList tagsList = this->getTags();
     _menuItem->getDish().setTags(tagsList);
 
-    QFile fileThumb(ui->lineEditPicture->text().trimmed());
+    QFile fileThumb(ui->lineEditThumb->text().trimmed());
     QFile filePicture(ui->lineEditPicture->text().trimmed());
 
     _menuItem->getDish().setThumb(CBGlobal::getFileName(fileThumb.fileName()));
     _menuItem->getDish().setPicture(CBGlobal::getFileName(filePicture.fileName()));
 
-    if (!fileThumb.exists())
+    if (fileThumb.exists())
     {
-        if (!fileThumb.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb())))
-            return false;
+        fileThumb.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb()));
     }
 
-    if (!filePicture.exists())
+    if (filePicture.exists())
     {
-        if (!filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture())))
-            return false;
+        filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture()));
     }
 
     if (!CBGlobal::writeMenuItemXml(_menuItem))
