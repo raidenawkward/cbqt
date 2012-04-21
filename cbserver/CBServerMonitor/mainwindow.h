@@ -50,7 +50,6 @@ private slots:
     void on_buttonEdit_clicked();
     void on_buttonRefresh_clicked();
     void on_tableWidget_cellDoubleClicked(int, int);
-
     void on_buttonRemove_clicked();
 
 private:

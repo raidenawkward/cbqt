@@ -225,6 +225,10 @@ void MainWindow::on_buttonRemove_clicked()
 
     if(res == QMessageBox::Yes)
     {
-
+        if (_engine->getMenuItemsSet()->remove(index))
+        {
+            CBGlobal::removeMenuItem(item);
+            this->refreshTabWidget();
+        }
     }
 }
