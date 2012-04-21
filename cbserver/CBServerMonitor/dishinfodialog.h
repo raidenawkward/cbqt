@@ -41,6 +41,7 @@ private slots:
     void on_buttonAddTab_clicked();
     void on_buttonEdit_clicked();
     void on_buttonDeleteTag_clicked();
+    void on_lineEditThumb_textChanged(const QString &arg1);
 
     void slt_save();
     void slt_apply();

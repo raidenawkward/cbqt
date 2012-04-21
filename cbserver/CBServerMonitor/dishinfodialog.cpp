@@ -152,25 +152,49 @@ bool DishInfoDialog::checkResult()
     if (ui->lineEditName->text().isEmpty())
     {
         showWarning(tr("名称不能为空!"));
+        ui->lineEditName->setFocus();
         return false;
     }
 
     if (ui->lineEditPrice->text().isEmpty())
     {
         showWarning(tr("价格不能为空!"));
+        ui->lineEditPrice->setFocus();
         return false;
     }
 
     if (ui->lineEditThumb->text().isEmpty())
     {
         showWarning(tr("缩略图不能为空!"));
+        ui->lineEditThumb->setFocus();
         return false;
+    }
+    else
+    {
+        if (!QFile(ui->lineEditThumb->text()).exists())
+        {
+            showWarning(tr("指定的缩略图不存在!"));
+            ui->lineEditThumb->setFocus();
+            ui->lineEditThumb->selectAll();
+            return false;
+        }
     }
 
     if (ui->lineEditPicture->text().isEmpty())
     {
         showWarning(tr("图片路径不能为空!"));
+        ui->lineEditPicture->setFocus();
         return false;
+    }
+    else
+    {
+        if (!QFile(ui->lineEditPicture->text()).exists())
+        {
+            showWarning(tr("指定的图片不存在!"));
+            ui->lineEditPicture->setFocus();
+            ui->lineEditPicture->selectAll();
+            return false;
+        }
     }
 
     return true;
@@ -179,8 +203,10 @@ bool DishInfoDialog::checkResult()
 void DishInfoDialog::setPreviewImage(const QString path)
 {
     QPixmap pixmap(path, CBGlobal::getFileExt(path).toUpper().toUtf8().constData());
-
-    ui->labelPreview->setPixmap(pixmap);
+    if (!pixmap.isNull())
+        ui->labelPreview->setPixmap(pixmap);
+    else
+        ui->labelPreview->setText(tr("图片预览"));
 }
 
 void DishInfoDialog::setMenuItem(CBMenuItem* item)
@@ -349,4 +375,11 @@ void DishInfoDialog::slt_reset()
     {
         setMenuItem(this->_menuItem);
     }
+
+    this->checkResult();
+}
+
+void DishInfoDialog::on_lineEditThumb_textChanged(const QString &arg1)
+{
+    this->setPreviewImage(arg1);
 }
