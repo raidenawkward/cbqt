@@ -102,20 +102,30 @@ bool DishInfoDialog::saveItem()
     QStringList tagsList = this->getTags();
     _menuItem->getDish().setTags(tagsList);
 
+    QFile fileOldThumb(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb()));
+    QFile fileOldPicture(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture()));
     QFile fileThumb(ui->lineEditThumb->text().trimmed());
     QFile filePicture(ui->lineEditPicture->text().trimmed());
 
-    _menuItem->getDish().setThumb(CBGlobal::getFileName(fileThumb.fileName()));
-    _menuItem->getDish().setPicture(CBGlobal::getFileName(filePicture.fileName()));
-
-    if (fileThumb.exists())
+    if (fileOldThumb.fileName() != fileThumb.fileName())
     {
-        fileThumb.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb()));
+        _menuItem->getDish().setThumb(CBGlobal::getFileName(fileThumb.fileName()));
+        if (fileThumb.exists())
+        {
+            fileThumb.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb()));
+        }
+        fileOldThumb.remove();
     }
 
-    if (filePicture.exists())
+    if (fileOldPicture.fileName() != filePicture.fileName())
     {
-        filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture()));
+        _menuItem->getDish().setPicture(CBGlobal::getFileName(filePicture.fileName()));
+
+        if (filePicture.exists())
+        {
+            filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture()));
+        }
+        fileOldThumb.remove();
     }
 
     if (!CBGlobal::writeMenuItemXml(_menuItem))
