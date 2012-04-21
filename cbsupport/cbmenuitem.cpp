@@ -45,7 +45,7 @@ bool CBMenuItem::equals(CBMenuItem item)
     return true;
 }
 
-CBDish CBMenuItem::getDish()
+CBDish& CBMenuItem::getDish()
 {
     return this->_dish;
 }
@@ -65,14 +65,24 @@ void CBMenuItem::setIconId(int id)
     _iconId = id;
 }
 
-QString CBMenuItem::getRecordPath()
+QString CBMenuItem::getRecordDir()
 {
-    return _recordPath;
+    return _recordDir;
 }
 
-void CBMenuItem::setRecordPath(const QString path)
+void CBMenuItem::setRecordDir(const QString path)
 {
-    _recordPath = path;
+    _recordDir = path;
+}
+
+QString CBMenuItem::getRecordFile()
+{
+    return _recordFile;
+}
+
+void CBMenuItem::setRecordFile(const QString file)
+{
+    _recordFile = file;
 }
 
 //CBMenuItem& CBMenuItem::operator = (CBMenuItem item)

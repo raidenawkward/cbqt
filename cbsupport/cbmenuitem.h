@@ -18,17 +18,20 @@ public:
     bool equals(CBMenuItem item);
 //    CBMenuItem& operator =(CBMenuItem item);
 
-    CBDish getDish();
+    CBDish& getDish();
     void setDish(CBDish dish);
     int getIconId();
     void setIconId(int id);
-    QString getRecordPath();
-    void setRecordPath(const QString path);
+    QString getRecordDir();
+    void setRecordDir(const QString path);
+    QString getRecordFile();
+    void setRecordFile(const QString file);
 
 private:
     CBDish _dish;
     int _iconId;
-    QString _recordPath;
+    QString _recordDir;
+    QString _recordFile;
 };
 
 #endif // CBMENUITEM_H

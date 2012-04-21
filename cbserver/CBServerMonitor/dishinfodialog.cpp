@@ -75,45 +75,55 @@ QStringList DishInfoDialog::getTags()
 
 bool DishInfoDialog::saveItem()
 {
-    CBDish dish;
+    QDir root(CBSERVERMONITOR_DISHES_DIR);
+    if (!root.exists())
+    {
+        if (!root.mkdir(root.absolutePath()))
+            return false;
+    }
+
     CBId id(ui->lineEditId->text().trimmed());
-    dish.setId(id);
-    dish.setName(ui->lineEditName->text().trimmed());
-    dish.setPrice(ui->lineEditPrice->text().trimmed().toFloat());
-    dish.setScore(ui->lineEditScore->text().trimmed().toFloat());
-    dish.setSummary(ui->lineEditSummary->text().trimmed());
-    dish.setDetail(ui->textEditDetail->toPlainText().trimmed());
-    dish.setPicture(ui->lineEditPicture->text().trimmed());
-    dish.setThumb(ui->lineEditThumb->text().trimmed());
+
+    if (!_menuItem)
+    {
+        _menuItem = new CBMenuItem();
+        _menuItem->setRecordDir(CBGlobal::combinePath(root.absolutePath(), id.toString()));
+        root.mkdir(_menuItem->getRecordDir());
+        _menuItem->setRecordFile(id.toString() + ".xml");
+    }
+
+    _menuItem->getDish().setId(id);
+    _menuItem->getDish().setName(ui->lineEditName->text().trimmed());
+    _menuItem->getDish().setPrice(ui->lineEditPrice->text().trimmed().toFloat());
+    _menuItem->getDish().setScore(ui->lineEditScore->text().trimmed().toFloat());
+    _menuItem->getDish().setSummary(ui->lineEditSummary->text().trimmed());
+    _menuItem->getDish().setDetail(ui->textEditDetail->toPlainText().trimmed());
 
     QStringList tagsList = this->getTags();
-    dish.setTags(tagsList);
+    _menuItem->getDish().setTags(tagsList);
 
-    CBMenuItem *newItem = new CBMenuItem(dish);
-    if (_menuItem)
+    QFile fileThumb(ui->lineEditPicture->text().trimmed());
+    QFile filePicture(ui->lineEditPicture->text().trimmed());
+
+    _menuItem->getDish().setThumb(CBGlobal::getFileName(fileThumb.fileName()));
+    _menuItem->getDish().setPicture(CBGlobal::getFileName(filePicture.fileName()));
+
+    if (!fileThumb.exists())
     {
-        newItem->setRecordPath(this->_menuItem->getRecordPath());
-        if (CBGlobal::updateMenuItem(_menuItem, newItem))
-        {
-            _menuItem = newItem;
-        }
-        else
-            return false;
-    }
-    else
-    {
-        newItem->setRecordPath(QString(CBSERVERMONITOR_DISHES_DIR)
-                               + QString(CBPATH_SPLITOR)
-                               + id.toString()
-                               + QString(CBPATH_SPLITOR)
-                               + id.toString()
-                               + ".xml");
-        if (!CBGlobal::saveMenuItem(newItem))
+        if (!fileThumb.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb())))
             return false;
     }
 
-    _menuItem = newItem;
-    emit this->sig_itemChanged(newItem);
+    if (!filePicture.exists())
+    {
+        if (!filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture())))
+            return false;
+    }
+
+    if (!CBGlobal::writeMenuItemXml(_menuItem))
+        return false;
+
+    emit this->sig_itemChanged(_menuItem);
 
     return true;
 }
@@ -167,10 +177,11 @@ void DishInfoDialog::setPreviewImage(const QString path)
 
 void DishInfoDialog::setMenuItem(CBMenuItem* item)
 {
+    ui->listWidgetTags->clear();
+    this->_menuItem = item;
+
     if (!item)
         return;
-
-    ui->listWidgetTags->clear();
 
     CBDish dish = item->getDish();
 
@@ -184,15 +195,13 @@ void DishInfoDialog::setMenuItem(CBMenuItem* item)
     ui->lineEditSummary->setText(dish.getSummary());
     ui->textEditDetail->setText(dish.getDetail());
 
-    QString thumbPath = CBGlobal::getFileDir(item->getRecordPath()) + dish.getThumb();
-    QString picturePath = CBGlobal::getFileDir(item->getRecordPath()) + dish.getPicture();
+    QString thumbPath = item->getRecordDir() + QString(CBPATH_SPLITOR) + dish.getThumb();
+    QString picturePath = item->getRecordDir() + QString(CBPATH_SPLITOR) + dish.getPicture();
 
     ui->lineEditThumb->setText(thumbPath);
     ui->lineEditPicture->setText(picturePath);
 
     setPreviewImage(thumbPath);
-
-    this->_menuItem = item;
 }
 
 CBMenuItem* DishInfoDialog::getMenuItem()

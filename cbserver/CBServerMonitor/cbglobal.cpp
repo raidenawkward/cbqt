@@ -29,6 +29,15 @@ QString CBGlobal::getFileExt(const QString path)
     return path.mid(index + 1);
 }
 
+QString CBGlobal::getFileName(const QString path)
+{
+    int index = path.lastIndexOf(CBPATH_SPLITOR) + 1;
+
+    if (index == -1)
+        return path;
+    return path.mid(index);
+}
+
 bool CBGlobal::copyDir(const QString src, const QString dest, bool override)
 {
     QDir dirSrc(src);
@@ -93,15 +102,32 @@ bool CBGlobal::rmDir(const QString dir)
     return directory.rmdir(QDir::convertSeparators(directory.path()));
 }
 
+QString CBGlobal::combinePath(const QString dir, const QString file)
+{
+    QString res;
+    res += dir;
+    res += QString(CBPATH_SPLITOR);
+    res += file;
+
+    return res;
+}
+
 bool CBGlobal::saveMenuItem(CBMenuItem* item)
 {
     if (!item)
         return false;
 
+    QDir itemDir(item->getRecordDir());
+    if (!itemDir.exists())
+    {
+        itemDir.mkdir(item->getRecordDir());
+    }
+
     QFile fileThumb(item->getDish().getThumb());
     if (!fileThumb.exists())
         return false;
-    if (fileThumb.copy(getFileDir(item->getRecordPath()) + fileThumb.fileName()))
+
+    if (fileThumb.copy(item->getRecordDir() + QString(CBPATH_SPLITOR) + fileThumb.fileName()))
     {
         item->getDish().setThumb(fileThumb.fileName());
     }
@@ -113,7 +139,8 @@ bool CBGlobal::saveMenuItem(CBMenuItem* item)
     QFile filePicture(item->getDish().getThumb());
     if (!filePicture.exists())
         return false;
-    if (filePicture.copy(getFileDir(item->getRecordPath()) + filePicture.fileName()))
+
+    if (filePicture.copy(item->getRecordDir() + QString(CBPATH_SPLITOR) + filePicture.fileName()))
     {
         item->getDish().setThumb(filePicture.fileName());
     }
@@ -130,8 +157,8 @@ bool CBGlobal::updateMenuItem(CBMenuItem* oldItem, CBMenuItem* newItem)
     if (!oldItem || !newItem)
         return false;
 
-    QString oldThumb = getFileDir(oldItem->getRecordPath()) + oldItem->getDish().getThumb();
-    QString oldPicture = getFileDir(oldItem->getRecordPath()) + oldItem->getDish().getPicture();
+    QString oldThumb = oldItem->getRecordDir() + QString(CBPATH_SPLITOR) + oldItem->getDish().getThumb();
+    QString oldPicture = oldItem->getRecordDir() + QString(CBPATH_SPLITOR) + oldItem->getDish().getPicture();
 
     QString newThumb = newItem->getDish().getThumb();
     QString newPicture = newItem->getDish().getThumb();
@@ -141,7 +168,7 @@ bool CBGlobal::updateMenuItem(CBMenuItem* oldItem, CBMenuItem* newItem)
         QFile file(newThumb);
         if (!file.exists())
             return false;
-        if (file.copy(getFileDir(newItem->getRecordPath()) + file.fileName()))
+        if (file.copy(newItem->getRecordDir() + QString(CBPATH_SPLITOR) + file.fileName()))
         {
             QFile(oldThumb).remove();
             oldItem->getDish().setThumb(file.fileName());
@@ -157,7 +184,7 @@ bool CBGlobal::updateMenuItem(CBMenuItem* oldItem, CBMenuItem* newItem)
         QFile file(newPicture);
         if (!file.exists())
             return false;
-        if (file.copy(getFileDir(newItem->getRecordPath()) + file.fileName()))
+        if (file.copy(newItem->getRecordDir() + QString(CBPATH_SPLITOR) + file.fileName()))
         {
             QFile(oldPicture).remove();
             oldItem->getDish().setPicture(file.fileName());
@@ -176,7 +203,7 @@ bool CBGlobal::removeMenuItem(CBMenuItem *item)
     if (!item)
         return false;
 
-    return rmDir(getFileDir(item->getRecordPath()));
+    return rmDir(item->getRecordDir());
 }
 
 bool CBGlobal::writeMenuItemXml(CBMenuItem* item)
@@ -184,7 +211,8 @@ bool CBGlobal::writeMenuItemXml(CBMenuItem* item)
     if (!item)
         return false;
 
-    CBXmlWriter writer(item->getRecordPath());
+    qDebug()<<item->getRecordDir() + QString(CBPATH_SPLITOR) + item->getRecordFile();
+    CBXmlWriter writer(item->getRecordDir() + QString(CBPATH_SPLITOR) + item->getRecordFile());
     if (!writer.start())
         return false;
 
