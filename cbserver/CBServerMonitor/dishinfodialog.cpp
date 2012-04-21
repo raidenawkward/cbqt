@@ -40,8 +40,11 @@ void DishInfoDialog::on_toolButtonThumb_clicked()
                                                     tr("."),
                                                     tr("图片文件 (*.jpg *.png *.bmp)"));
 
-    ui->lineEditThumb->setText(fileName);
-    this->setPreviewImage(fileName);
+    if (!fileName.isEmpty())
+    {
+        ui->lineEditThumb->setText(fileName);
+        this->setPreviewImage(fileName);
+    }
 }
 
 void DishInfoDialog::on_toolButtonPicture_clicked()
@@ -51,7 +54,10 @@ void DishInfoDialog::on_toolButtonPicture_clicked()
                                                     tr("."),
                                                     tr("图片文件 (*.jpg *.png *.bmp)"));
 
-    ui->lineEditPicture->setText(fileName);
+    if (!fileName.isEmpty())
+    {
+        ui->lineEditPicture->setText(fileName);
+    }
 }
 
 void DishInfoDialog::setTags(CBTagsSet set)
