@@ -7,6 +7,12 @@
 #define CBSERVERMONITOR_DISHES_DIR "dishes"
 
 #ifdef win32
+    #define CB_DEFAULT_CODED "gb2312"
+#else
+    #define CB_DEFAULT_CODED "utf8"
+#endif
+
+#ifdef win32
     #define CBPATH_SPLITOR "\\"
 #else
     #define CBPATH_SPLITOR "/"
