@@ -142,6 +142,7 @@ void MainWindow::refreshTabWidget()
         for (int j = DISH_TABLE_ID; j < DISH_TABLE_UNKNOWN; ++j)
         {
             QTableWidgetItem *tabItem = generateTableItem(item, (DISH_TABLE_HEADER)j);
+            tabItem->setToolTip(item->getDish().getName());
             ui->tableWidget->setItem(i, j, tabItem);
         }
     }
@@ -153,7 +154,9 @@ void MainWindow::initTabWidget()
 {
     QStringList headers;
     for (int i = DISH_TABLE_ID; i < DISH_TABLE_UNKNOWN; ++i)
+    {
         headers<<generateTableString((DISH_TABLE_HEADER)i);
+    }
 
     ui->tableWidget->setColumnCount(headers.count());
     ui->tableWidget->setHorizontalHeaderLabels(headers);
@@ -162,6 +165,7 @@ void MainWindow::initTabWidget()
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->setAlternatingRowColors(true);
     ui->tableWidget->resizeColumnToContents (0);
+    ui->tableWidget->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 }
 
 void MainWindow::refreshMenuItemList()
