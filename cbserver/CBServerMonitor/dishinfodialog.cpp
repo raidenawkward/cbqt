@@ -228,7 +228,7 @@ void DishInfoDialog::setMenuItem(CBMenuItem* item)
     if (!item)
         return;
 
-    CBDish dish = item->getDish();
+    CBDish dish = _menuItem->getDish();
 
     ui->lineEditId->setText(dish.getId().toString());
     ui->lineEditName->setText(dish.getName());

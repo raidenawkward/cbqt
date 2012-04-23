@@ -174,8 +174,9 @@ void MainWindow::slt_menuItemUpdate(CBMenuItem* item)
     if (!item)
         return;
     QModelIndex index = ui->tableWidget->currentIndex();
-    on_buttonRefresh_clicked();
+    //on_buttonRefresh_clicked();
     ui->tableWidget->setCurrentIndex(index);
+    refreshTabWidget();
 }
 
 void MainWindow::on_buttonAdd_clicked()

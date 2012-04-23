@@ -37,7 +37,6 @@ void CBPathWalker::traverse(QFileInfo node, int depth)
         for (int i = 0; i < infoList.count(); ++i)
         {
             QFileInfo info = infoList.at(i);
-            qDebug()<<"file detected: "<<info.absoluteFilePath();
             traverse(info, depth + 1);
         }
     }
