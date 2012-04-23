@@ -110,6 +110,9 @@ int CBMenuItemsSet::count()
 
 bool CBMenuItemsSet::contains(CBMenuItem* item)
 {
+    if (!item)
+        return false;
+
     for (int i = 0; i < _itemList.count(); ++i)
     {
         CBMenuItem *it = _itemList.at(i);
@@ -118,6 +121,7 @@ bool CBMenuItemsSet::contains(CBMenuItem* item)
         if (it->getDish().equals(item->getDish()))
             return true;
     }
+
     return false;
 }
 
