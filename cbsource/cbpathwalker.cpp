@@ -1,6 +1,7 @@
 #include "cbpathwalker.h"
 #include <QFileInfoList>
 #include <QDir>
+#include <QDebug>
 
 CBPathWalker::CBPathWalker()
 {
@@ -32,10 +33,11 @@ void CBPathWalker::traverse(QFileInfo node, int depth)
             _callback->onDirDetected(node, depth);
 
         QDir dir(node.absoluteFilePath());
-        QFileInfoList infoList = dir.entryInfoList();
+        QFileInfoList infoList = dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot);
         for (int i = 0; i < infoList.count(); ++i)
         {
             QFileInfo info = infoList.at(i);
+            qDebug()<<"file detected: "<<info.absoluteFilePath();
             traverse(info, depth + 1);
         }
     }

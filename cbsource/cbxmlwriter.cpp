@@ -1,4 +1,5 @@
 #include "cbxmlwriter.h"
+#include <QTextCodec>
 
 CBXmlWriter::CBXmlWriter()
 {
@@ -39,6 +40,15 @@ void CBXmlWriter::setIODevice(QIODevice *device)
         return;
 
     _streamWriter = new QXmlStreamWriter(device);
+}
+void CBXmlWriter::setCodec(const QString codec)
+{
+    if (!_streamWriter)
+        return;
+
+    QString c = codec;
+    QTextCodec *tc = QTextCodec::codecForName(c.toUtf8().constData());
+    _streamWriter->setCodec(tc);
 }
 
 void CBXmlWriter::setFilePath(const QString filePath)

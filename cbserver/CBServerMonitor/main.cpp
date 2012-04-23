@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
-    QTextCodec *tc = QTextCodec::codecForName(CB_DEFAULT_CODED);
+    QTextCodec *tc = QTextCodec::codecForName(CB_DEFAULT_UI_CODED);
     QTextCodec::setCodecForCStrings(tc);
     QTextCodec::setCodecForTr(tc);
     QTextCodec::setCodecForLocale(tc);

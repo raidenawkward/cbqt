@@ -213,6 +213,7 @@ bool CBGlobal::writeMenuItemXml(CBMenuItem* item)
 
     qDebug()<<item->getRecordDir() + QString(CBPATH_SPLITOR) + item->getRecordFile();
     CBXmlWriter writer(item->getRecordDir() + QString(CBPATH_SPLITOR) + item->getRecordFile());
+    writer.setCodec(CB_DEFAULT_XML_CODED);
     if (!writer.start())
         return false;
 

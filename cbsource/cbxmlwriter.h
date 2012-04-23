@@ -15,6 +15,7 @@ public:
 
     void setIODevice(QIODevice *device);
     void setFilePath(const QString filePath);
+    void setCodec(const QString codec);
 
     bool start();
     void end();

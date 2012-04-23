@@ -115,21 +115,26 @@ bool DishInfoDialog::saveItem()
 
     if (fileOldThumb.fileName() != fileThumb.fileName())
     {
-        _menuItem->getDish().setThumb(CBGlobal::getFileName(fileThumb.fileName()));
+        QFileInfo info(fileThumb);
+        _menuItem->getDish().setThumb(CBGlobal::getFileName(info.fileName()));
+        qDebug()<<CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb());
         if (fileThumb.exists())
         {
-            fileThumb.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb()));
+            if (!fileThumb.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb())))
+                return false;
         }
         fileOldThumb.remove();
     }
 
     if (fileOldPicture.fileName() != filePicture.fileName())
     {
-        _menuItem->getDish().setPicture(CBGlobal::getFileName(filePicture.fileName()));
+        QFileInfo info(filePicture);
+        _menuItem->getDish().setPicture(CBGlobal::getFileName(info.fileName()));
 
         if (filePicture.exists())
         {
-            filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture()));
+            if (!filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture())))
+                return false;
         }
         fileOldThumb.remove();
     }
