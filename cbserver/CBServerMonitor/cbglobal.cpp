@@ -57,6 +57,7 @@ bool CBGlobal::copyDir(const QString src, const QString dest, bool override)
         {
             if (!copyDir(info.absoluteFilePath(), dirDest.filePath(info.fileName()), override))
                 return false;
+            continue;
         }
 
         if (info.isFile() || info.isSymLink())

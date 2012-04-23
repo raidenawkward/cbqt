@@ -5,6 +5,7 @@
 #include "cbmenuitemsset.h"
 
 #include <QMessageBox>
+#include <QFileDialog>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -237,5 +238,34 @@ void MainWindow::on_buttonRemove_clicked()
             CBGlobal::removeMenuItem(item);
             this->refreshTabWidget();
         }
+    }
+}
+
+bool MainWindow::exportDir(const QString dir)
+{
+    bool res = false;
+    QString name = CBGlobal::getFileName(CBSERVERMONITOR_DISHES_DIR);
+    qDebug()<<CBGlobal::combinePath(dir, name);
+    if (!dir.isEmpty())
+    {
+        res = CBGlobal::copyDir(CBSERVERMONITOR_DISHES_DIR, CBGlobal::combinePath(dir, name), true);
+    }
+
+    return res;
+}
+
+void MainWindow::on_buttonExport_clicked()
+{
+    QString path = QFileDialog::getExistingDirectory(this,
+                                            tr("选择导出路径"),
+                                            tr("."));
+
+    bool res = exportDir(path);
+    if (!res)
+    {
+        QMessageBox::critical(this,
+                              tr("错误"),
+                              tr("在导出过程出发生错误"),
+                              QMessageBox::Ok);
     }
 }

@@ -51,10 +51,12 @@ private slots:
     void on_buttonRefresh_clicked();
     void on_tableWidget_cellDoubleClicked(int, int);
     void on_buttonRemove_clicked();
+    void on_buttonExport_clicked();
 
 private:
     void initTabWidget();
     void refreshMenuItemList();
+    bool exportDir(const QString dir);
 
 private:
     Ui::MainWindow *ui;
