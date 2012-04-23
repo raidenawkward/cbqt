@@ -11,7 +11,7 @@
 #ifdef WIN32
     #define CB_DEFAULT_XML_CODED "gb2312"
 #else
-    #define CB_DEFAULT_XML_CODED "utf8"
+    #define CB_DEFAULT_XML_CODED "gb2312"
 #endif
 
 #ifdef WIN32
