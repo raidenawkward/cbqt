@@ -22,6 +22,11 @@ DishInfoDialog::DishInfoDialog(QWidget *parent) :
     pe.setColor(QPalette::WindowText,Qt::red);
     ui->labelWarning->setPalette(pe);
 
+    ui->buttonBox->button(QDialogButtonBox::Save)->setText(tr("保存"));
+    ui->buttonBox->button(QDialogButtonBox::Apply)->setText(tr("应用"));
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("取消"));
+    ui->buttonBox->button(QDialogButtonBox::Reset)->setText(tr("重置"));
+
     connect(ui->buttonBox->button(QDialogButtonBox::Save), SIGNAL(clicked()),this,SLOT(slt_save()));
     connect(ui->buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()),this,SLOT(slt_apply()));
     connect(ui->buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(clicked()),this,SLOT(slt_cancel()));
