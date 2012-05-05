@@ -141,7 +141,7 @@ bool DishInfoDialog::saveItem()
             if (!filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture())))
                 return false;
         }
-        fileOldThumb.remove();
+        fileOldPicture.remove();
     }
 
     if (!CBGlobal::writeMenuItemXml(_menuItem))
