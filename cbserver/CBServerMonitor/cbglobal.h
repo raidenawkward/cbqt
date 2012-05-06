@@ -5,13 +5,14 @@
 #include "cbmenuitem.h"
 
 #define CBSERVERMONITOR_DISHES_DIR "dishes"
+#define CB_PLUGING_PATH "plugins"
 
-#define CB_DEFAULT_UI_CODED "utf8"
+#define CB_DEFAULT_UI_CODED "UTF-8"
 
 #ifdef WIN32
-    #define CB_DEFAULT_XML_CODED "gb2312"
+    #define CB_DEFAULT_XML_CODED "GB2312"
 #else
-    #define CB_DEFAULT_XML_CODED "gb2312"
+    #define CB_DEFAULT_XML_CODED "GB2312"
 #endif
 
 #ifdef WIN32

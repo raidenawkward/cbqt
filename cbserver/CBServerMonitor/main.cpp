@@ -8,14 +8,16 @@ CBEngine* initEngine();
 
 int main(int argc, char *argv[])
 {
-    CBEngine *engine = initEngine();
-
     QApplication a(argc, argv);
+    qApp->addLibraryPath(CB_PLUGING_PATH);
+    qApp->addLibraryPath("plugins/codecs");
 
     QTextCodec *tc = QTextCodec::codecForName(CB_DEFAULT_UI_CODED);
     QTextCodec::setCodecForCStrings(tc);
     QTextCodec::setCodecForTr(tc);
     QTextCodec::setCodecForLocale(tc);
+
+    CBEngine *engine = initEngine();
 
     MainWindow w;
     w.setEngine(engine);

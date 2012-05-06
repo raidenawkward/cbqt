@@ -128,7 +128,7 @@ bool DishInfoDialog::saveItem()
             if (!fileThumb.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getThumb())))
                 return false;
         }
-        fileOldThumb.remove();
+        //fileOldThumb.remove();
     }
 
     if (fileOldPicture.fileName() != filePicture.fileName())
@@ -138,10 +138,9 @@ bool DishInfoDialog::saveItem()
 
         if (filePicture.exists())
         {
-            if (!filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture())))
-                return false;
+            if (filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture())))
+                ;//fileOldPicture.remove();
         }
-        fileOldPicture.remove();
     }
 
     if (!CBGlobal::writeMenuItemXml(_menuItem))
