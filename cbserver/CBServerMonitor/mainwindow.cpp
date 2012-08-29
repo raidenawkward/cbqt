@@ -121,7 +121,7 @@ QString MainWindow::generateTableString(DISH_TABLE_HEADER header)
 
 void MainWindow::refreshTabWidget()
 {
-    ui->tableWidget->clear();
+    ui->tableWidgetDish->clear();
     initTabWidget();
 
     if (!_engine)
@@ -131,7 +131,7 @@ void MainWindow::refreshTabWidget()
         return;
 
     int rowCount = _engine->getMenuItemsSet()->count();
-    ui->tableWidget->setRowCount(rowCount);
+    ui->tableWidgetDish->setRowCount(rowCount);
 
     for (int i = 0; i < rowCount; ++i)
     {
@@ -143,11 +143,11 @@ void MainWindow::refreshTabWidget()
         {
             QTableWidgetItem *tabItem = generateTableItem(item, (DISH_TABLE_HEADER)j);
             tabItem->setToolTip(item->getDish().getName());
-            ui->tableWidget->setItem(i, j, tabItem);
+            ui->tableWidgetDish->setItem(i, j, tabItem);
         }
     }
 
-    ui->tableWidget->setCurrentCell(0, 0);
+    ui->tableWidgetDish->setCurrentCell(0, 0);
 }
 
 void MainWindow::initTabWidget()
@@ -158,14 +158,14 @@ void MainWindow::initTabWidget()
         headers<<generateTableString((DISH_TABLE_HEADER)i);
     }
 
-    ui->tableWidget->setColumnCount(headers.count());
-    ui->tableWidget->setHorizontalHeaderLabels(headers);
-    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableWidget->setAlternatingRowColors(true);
-    ui->tableWidget->resizeColumnToContents (0);
-    ui->tableWidget->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    ui->tableWidgetDish->setColumnCount(headers.count());
+    ui->tableWidgetDish->setHorizontalHeaderLabels(headers);
+    ui->tableWidgetDish->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidgetDish->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableWidgetDish->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetDish->setAlternatingRowColors(true);
+    ui->tableWidgetDish->resizeColumnToContents (0);
+    ui->tableWidgetDish->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 }
 
 void MainWindow::refreshMenuItemList()
@@ -184,9 +184,9 @@ void MainWindow::slt_menuItemUpdate(CBMenuItem* item)
 
     _engine->getMenuItemsSet()->add(item);
 
-    QModelIndex index = ui->tableWidget->currentIndex();
+    QModelIndex index = ui->tableWidgetDish->currentIndex();
     //on_buttonRefresh_clicked();
-    ui->tableWidget->setCurrentIndex(index);
+    ui->tableWidgetDish->setCurrentIndex(index);
     refreshTabWidget();
 }
 
@@ -203,7 +203,7 @@ void MainWindow::on_buttonEdit_clicked()
 {
     DishInfoDialog dialog;
     dialog.setWindowTitle(tr("编辑"));
-    int index = ui->tableWidget->currentRow();
+    int index = ui->tableWidgetDish->currentRow();
     CBMenuItem *item = _engine->getMenuItemsSet()->get(index);
     dialog.setMenuItem(item);
     connect(&dialog,SIGNAL(sig_itemChanged(CBMenuItem*)), this, SLOT(slt_menuItemUpdate(CBMenuItem*)));
@@ -223,7 +223,7 @@ void MainWindow::on_tableWidget_cellDoubleClicked(int, int)
 
 void MainWindow::on_buttonRemove_clicked()
 {
-    int index = ui->tableWidget->currentRow();
+    int index = ui->tableWidgetDish->currentRow();
     CBMenuItem *item = _engine->getMenuItemsSet()->get(index);
 
     QString content = tr("确定要删除\"");

@@ -4,7 +4,10 @@
 #include <QString>
 #include "cbmenuitem.h"
 
+#define CBSERVERMONITOR_ROOT "lacarte"
 #define CBSERVERMONITOR_DISHES_DIR "dishes"
+#define CBSERVERMONITOR_SETTINGS_DIR "settings"
+
 #define CB_PLUGING_PATH "plugins"
 
 #define CB_DEFAULT_UI_CODED "UTF-8"

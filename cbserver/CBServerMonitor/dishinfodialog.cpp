@@ -139,7 +139,7 @@ bool DishInfoDialog::saveItem()
         if (filePicture.exists())
         {
             if (filePicture.copy(CBGlobal::combinePath(_menuItem->getRecordDir(), _menuItem->getDish().getPicture())))
-                ;//fileOldPicture.remove();
+                qDebug()<<"failed copying picture "<<_menuItem->getDish().getPicture();//fileOldPicture.remove();
         }
     }
 
