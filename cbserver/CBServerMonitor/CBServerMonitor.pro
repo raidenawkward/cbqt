@@ -17,7 +17,8 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     dishinfodialog.h \
-    cbglobal.h
+    cbglobal.h \
+    cbdefine.h
 
 FORMS    += mainwindow.ui \
     dishinfodialog.ui
