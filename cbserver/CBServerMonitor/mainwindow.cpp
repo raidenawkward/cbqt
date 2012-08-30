@@ -266,6 +266,9 @@ void MainWindow::on_buttonExport_clicked()
                                             tr("选择导出路径"),
                                             tr("."));
 
+    if (path.isEmpty())
+        return;
+
     bool res = exportDir(path);
     if (!res)
     {
