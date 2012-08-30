@@ -48,6 +48,7 @@ protected slots:
 private slots:
     void on_buttonAdd_clicked();
     void on_buttonEdit_clicked();
+    void on_tableWidgetDish_doubleClicked(const QModelIndex &index);
     void on_buttonRefresh_clicked();
     void on_tableWidget_cellDoubleClicked(int, int);
     void on_buttonRemove_clicked();
