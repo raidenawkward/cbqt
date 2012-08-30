@@ -67,6 +67,7 @@ private slots:
     void on_pushButtonResetToDefaultValue_clicked();
     void on_buttonExportSettings_clicked();
     void on_pushButtonDeviceSettingsSave_clicked();
+    void on_pushButtonDeviceSettingsRefresh_clicked();
 
 private:
     void initTabWidget();

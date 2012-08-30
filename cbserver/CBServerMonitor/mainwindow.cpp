@@ -383,6 +383,7 @@ void MainWindow::initDeviceCharSetComboBox()
         else
             break;
     }
+    ui->comboBoxDeviceCharSet->setEditText(CB_DEFAULT_DEVICE_CHARSET);
 }
 
 void MainWindow::on_pushButtonNewLocation_clicked()
@@ -463,7 +464,20 @@ void MainWindow::on_pushButtonLocationSettingExport_clicked()
 
 void MainWindow::on_pushButtonResetToDefaultValue_clicked()
 {
+    QString content = tr("确定恢复默认设置， 并将标签与位置信息恢复到修改前吗?");
+    QMessageBox::StandardButton res = QMessageBox::question(this,
+                                     tr("确认"),
+                                     content,
+                                     QMessageBox::Yes | QMessageBox::No,
+                                     QMessageBox::Yes);
 
+    if(res != QMessageBox::Yes)
+        return;
+
+    ui->spinBoxFontSizeLeftButton->setValue(CB_DEFAULT_LEFT_BUTTON_FONT_SIZE);
+    ui->spinBoxMenuItemCol->setValue(CB_DEFAULT_ITEM_COL);
+    ui->spinBoxMaxItemOrderedCount->setValue(CB_DEFAULT_DISH_ITEM_ORDER_MAX_COUNT);
+    initDeviceCharSetComboBox();
 }
 
 void MainWindow::on_buttonExportSettings_clicked()
@@ -472,6 +486,11 @@ void MainWindow::on_buttonExportSettings_clicked()
 }
 
 void MainWindow::on_pushButtonDeviceSettingsSave_clicked()
+{
+
+}
+
+void MainWindow::on_pushButtonDeviceSettingsRefresh_clicked()
 {
 
 }
