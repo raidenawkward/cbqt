@@ -515,12 +515,52 @@
                 <item>
                  <widget class="QLabel" name="label_7">
                   <property name="text">
+                   <string>设备配置文件名:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEditSettingsDeviceFile">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>app_settings.xml</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_14">
+                <item>
+                 <widget class="QLabel" name="label_10">
+                  <property name="text">
                    <string>配置文件存放于:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEditSettingsDir">
+                 <widget class="QLineEdit" name="lineEditSettingsDir_2">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -536,7 +576,7 @@
                  </widget>
                 </item>
                 <item>
-                 <spacer name="horizontalSpacer_2">
+                 <spacer name="horizontalSpacer_7">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>

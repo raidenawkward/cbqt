@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <QDir>
+#include <QFile>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -493,4 +495,19 @@ void MainWindow::on_pushButtonDeviceSettingsSave_clicked()
 void MainWindow::on_pushButtonDeviceSettingsRefresh_clicked()
 {
 
+}
+
+void MainWindow::refreshDeviceSettings()
+{
+
+}
+
+bool MainWindow::loadDeviceSettings()
+{
+    return false;
+}
+
+bool MainWindow::saveDeviceSettings()
+{
+    return false;
 }

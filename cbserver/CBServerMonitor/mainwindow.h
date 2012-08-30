@@ -35,6 +35,9 @@ public:
 
     void setEngine(CBEngine* engine);
     void refreshTabWidget();
+    void refreshDeviceSettings();
+    bool loadDeviceSettings();
+    bool saveDeviceSettings();
 
 protected:
     void showEvent(QShowEvent *);
