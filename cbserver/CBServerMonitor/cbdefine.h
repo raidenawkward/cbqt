@@ -33,4 +33,7 @@ static const char s_cb_device_charset[2][20] = {
     "utf-8",
 };
 
+#define XML_TAG_LEFT_BUTTON_LIST "LeftButtonList"
+#define XML_TAG_LEFT_BUTTON "LeftButton"
+
 #endif // CBDEFINE_H

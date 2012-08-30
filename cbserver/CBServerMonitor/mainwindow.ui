@@ -24,7 +24,7 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
-       <widget class="QTabWidget" name="tabPCSettings_2">
+       <widget class="QTabWidget" name="tabMainTab">
         <property name="currentIndex">
          <number>2</number>
         </property>
@@ -126,7 +126,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tabSettings">
+        <widget class="QWidget" name="tabDeviceSettings">
          <attribute name="title">
           <string>终端配置</string>
          </attribute>
@@ -560,7 +560,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEditSettingsDir_2">
+                 <widget class="QLineEdit" name="lineEditSettingsDir">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>

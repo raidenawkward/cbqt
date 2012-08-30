@@ -14,6 +14,7 @@ public:
     static QString getFileName(const QString path);
     static bool copyDir(const QString src, const QString dest, bool override = false);
     static bool rmDir(const QString dir);
+    static bool mkdir_P(const QString &dirPath);
     static QString combinePath(const QString dir, const QString file);
 
     static bool saveMenuItem(CBMenuItem* item);

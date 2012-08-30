@@ -103,6 +103,26 @@ bool CBGlobal::rmDir(const QString dir)
     return directory.rmdir(QDir::convertSeparators(directory.path()));
 }
 
+bool CBGlobal::mkdir_P(const QString &dirPath)
+{
+    QStringList dirs = dirPath.split(CBPATH_SPLITOR);
+    QDir dir(dirs.at(0));
+    QString current = dir.currentPath();
+    for (int i = 0; i < dirs.count(); ++i)
+    {
+        current += QString(CBPATH_SPLITOR) + dirs.at(i);
+        if (!dir.exists())
+        {
+            if (!dir.mkdir(current))
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
 QString CBGlobal::combinePath(const QString dir, const QString file)
 {
     QString res;

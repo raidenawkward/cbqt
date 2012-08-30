@@ -3,6 +3,7 @@
 #include "dishinfodialog.h"
 #include "cbdishesscanner.h"
 #include "cbmenuitemsset.h"
+#include "cbsetting.h"
 
 #include <QMessageBox>
 #include <QFileDialog>
@@ -14,10 +15,10 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    _engine(NULL)
+    _engine(NULL),
+    _settingsLeftButton(NULL)
 {
     ui->setupUi(this);
-    initDeviceCharSetComboBox();
     refreshMenuItemList();
 }
 
@@ -33,7 +34,8 @@ void MainWindow::setEngine(CBEngine* engine)
 
 void MainWindow::showEvent(QShowEvent *)
 {
-    this->refreshTabWidget();
+    refreshTabWidget();
+    initTabWidgetDeviceSettings();
 }
 
 QTableWidgetItem* MainWindow::generateTableItem(CBMenuItem *item, DISH_TABLE_HEADER header)
@@ -126,7 +128,7 @@ QString MainWindow::generateTableString(DISH_TABLE_HEADER header)
 void MainWindow::refreshTabWidget()
 {
     ui->tableWidgetDish->clear();
-    initTabWidget();
+    initTabWidgetDish();
 
     if (!_engine)
         return;
@@ -154,7 +156,7 @@ void MainWindow::refreshTabWidget()
     ui->tableWidgetDish->setCurrentCell(0, 0);
 }
 
-void MainWindow::initTabWidget()
+void MainWindow::initTabWidgetDish()
 {
     QStringList headers;
     for (int i = DISH_TABLE_ID; i < DISH_TABLE_UNKNOWN; ++i)
@@ -489,12 +491,12 @@ void MainWindow::on_buttonExportSettings_clicked()
 
 void MainWindow::on_pushButtonDeviceSettingsSave_clicked()
 {
-
+    saveDeviceSettings();
 }
 
 void MainWindow::on_pushButtonDeviceSettingsRefresh_clicked()
 {
-
+    loadDeviceSettings();
 }
 
 void MainWindow::refreshDeviceSettings()
@@ -504,10 +506,68 @@ void MainWindow::refreshDeviceSettings()
 
 bool MainWindow::loadDeviceSettings()
 {
-    return false;
+    if (_settingsLeftButton == NULL)
+    {
+        QString settingFilePath = ui->lineEditSettingsDir->text().trimmed()
+                + QString(CBPATH_SPLITOR)
+                + ui->lineEditTagSettingFileName->text().trimmed();
+        _settingsLeftButton = new CBLeftButtonSetting();
+        _settingsLeftButton->setSettingPath(settingFilePath);
+        _settingsLeftButton->setSettingCodec(CB_DEFAULT_XML_CODED);
+    }
+
+    if (!_settingsLeftButton->load())
+        return false;
+
+    QStringList leftButtonTags = _settingsLeftButton->getTags();
+    qDebug()<<leftButtonTags;
+    for (int i = 0; i < leftButtonTags.count(); ++i)
+        ui->listWidgetLeftButtons->addItem(leftButtonTags.at(i));
+
+    return true;
 }
 
 bool MainWindow::saveDeviceSettings()
 {
-    return false;
+    if (_settingsLeftButton == NULL)
+        return false;
+
+    QStringList leftButtonTags;
+    for (int i = 0; i < ui->listWidgetLeftButtons->count(); ++i)
+        leftButtonTags.append(ui->listWidgetLeftButtons->item(i)->text().trimmed());
+    _settingsLeftButton->setTags(leftButtonTags);
+
+    if (!_settingsLeftButton->save())
+        return false;
+
+    return true;
+}
+
+void MainWindow::initTabWidgetDeviceSettings()
+{
+    initDeviceCharSetComboBox();
+    loadDeviceSettings();
+}
+
+void MainWindow::on_tabMainTab_currentChanged(int)
+{
+    QWidget *currentTab = ui->tabMainTab->currentWidget();
+
+    if (currentTab == ui->tabOrders)
+    {
+
+    }
+    else if (currentTab == ui->tabDishes)
+    {
+
+    }
+    else if (currentTab == ui->tabDeviceSettings)
+    {
+        initTabWidgetDeviceSettings();
+    }
+    else if (currentTab == ui->tabPCSettings)
+    {
+
+    }
+
 }

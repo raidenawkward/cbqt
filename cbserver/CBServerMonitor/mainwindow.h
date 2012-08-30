@@ -6,6 +6,7 @@
 #include "cbengine.h"
 #include "cbmenuitem.h"
 #include "cbglobal.h"
+#include "cbsetting.h"
 
 enum DISH_TABLE_HEADER
 {
@@ -72,8 +73,11 @@ private slots:
     void on_pushButtonDeviceSettingsSave_clicked();
     void on_pushButtonDeviceSettingsRefresh_clicked();
 
+    void on_tabMainTab_currentChanged(int index);
+
 private:
-    void initTabWidget();
+    void initTabWidgetDish();
+    void initTabWidgetDeviceSettings();
     void initDeviceCharSetComboBox();
     void refreshMenuItemList();
     bool exportDir(const QString dir);
@@ -81,6 +85,7 @@ private:
 private:
     Ui::MainWindow *ui;
     CBEngine *_engine;
+    CBLeftButtonSetting *_settingsLeftButton;
 };
 
 #endif // MAINWINDOW_H
