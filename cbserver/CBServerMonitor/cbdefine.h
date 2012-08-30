@@ -21,4 +21,16 @@
     #define CBPATH_SPLITOR "/"
 #endif
 
+#define CB_DEFAULT_ITEM_COL 3
+#define CB_MAX_LEFT_BUTTON_COUNT 10
+#define CB_DEFAULT_LEFT_BUTTON_FONT_SIZE 20
+#define CB_DEFAULT_DISH_ITEM_ORDER_MAX_COUNT 50
+
+#define CB_DEFAULT_DEVICE_CHARSET "gb2312"
+#define CB_DEVICE_CHARSET_COUNT 2
+static const char s_cb_device_charset[2][20] = {
+    "gb2312",
+    "utf-8",
+};
+
 #endif // CBDEFINE_H

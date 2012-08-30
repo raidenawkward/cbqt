@@ -2,6 +2,7 @@
 #define CBGLOBAL_H
 
 #include <QString>
+#include <QStringList>
 #include "cbmenuitem.h"
 #include "cbdefine.h"
 

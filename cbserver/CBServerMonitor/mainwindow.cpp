@@ -6,6 +6,7 @@
 
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QInputDialog>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _engine(NULL)
 {
     ui->setupUi(this);
+    initDeviceCharSetComboBox();
     refreshMenuItemList();
 }
 
@@ -272,4 +274,195 @@ void MainWindow::on_buttonExport_clicked()
                               tr("在导出过程出发生错误"),
                               QMessageBox::Ok);
     }
+}
+
+void MainWindow::on_pushButtonNewTag_clicked()
+{
+    bool ok = false;
+    QString tag = QInputDialog::getText(this,
+                                tr("添加标签"),
+                                tr("新标签名称:"),
+                                QLineEdit::Normal,
+                                QString(),
+                                &ok);
+
+    if (ok)
+    {
+        ui->listWidgetLeftButtons->addItem(tag);
+    }
+}
+
+void MainWindow::on_listWidgetLeftButtons_doubleClicked(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return;
+
+    if (!ui->listWidgetLeftButtons->currentItem())
+        return;
+
+    bool ok = false;
+    QString text = ui->listWidgetLeftButtons->currentItem()->text();
+    QString tag = QInputDialog::getText(this,
+                                tr("修改标签"),
+                                tr("标签名称:"),
+                                QLineEdit::Normal,
+                                text,
+                                &ok);
+
+    if (ok)
+    {
+        ui->listWidgetLeftButtons->currentItem()->setText(tag);
+    }
+}
+
+void MainWindow::on_pushButtonDelTag_clicked()
+{
+    if (!ui->listWidgetLeftButtons->currentItem())
+        return;
+
+    QString content = tr("确定要删除标签\"");
+    content += ui->listWidgetLeftButtons->currentItem()->text();
+    content += tr("\"吗?");
+    QMessageBox::StandardButton res = QMessageBox::question(this,
+                                     tr("删除确认"),
+                                     content,
+                                     QMessageBox::Yes | QMessageBox::No,
+                                     QMessageBox::Yes);
+
+    if(res == QMessageBox::Yes)
+    {
+        ui->listWidgetLeftButtons->takeItem(ui->listWidgetLeftButtons->currentIndex().row());
+    }
+}
+
+void MainWindow::on_pushButtonTagUp_clicked()
+{
+    QListWidgetItem *currentItem = ui->listWidgetLeftButtons->currentItem();
+    if (currentItem == NULL)
+        return;
+
+    int row = ui->listWidgetLeftButtons->currentRow();
+    if (row == 0)
+        return;
+
+    ui->listWidgetLeftButtons->takeItem(row);
+    ui->listWidgetLeftButtons->insertItem(--row, currentItem);
+    ui->listWidgetLeftButtons->setCurrentRow(row);
+}
+
+void MainWindow::on_pushButtonTagDown_clicked()
+{
+    QListWidgetItem *currentItem = ui->listWidgetLeftButtons->currentItem();
+    if (currentItem == NULL)
+        return;
+
+    int row = ui->listWidgetLeftButtons->currentRow();
+    if (row == ui->listWidgetLeftButtons->count() - 1)
+        return;
+
+    ui->listWidgetLeftButtons->takeItem(row);
+    ui->listWidgetLeftButtons->insertItem(++row, currentItem);
+    ui->listWidgetLeftButtons->setCurrentRow(row);
+}
+
+void MainWindow::initDeviceCharSetComboBox()
+{
+    ui->comboBoxDeviceCharSet->clear();
+    for (size_t i = 0; i < CB_DEVICE_CHARSET_COUNT; ++i) {
+        if (s_cb_device_charset[i] != NULL)
+            ui->comboBoxDeviceCharSet->addItem(QString(s_cb_device_charset[i]));
+        else
+            break;
+    }
+}
+
+void MainWindow::on_pushButtonNewLocation_clicked()
+{
+    bool ok = false;
+    QString tag = QInputDialog::getText(this,
+                                tr("添加标签"),
+                                tr("新标签名称:"),
+                                QLineEdit::Normal,
+                                QString(),
+                                &ok);
+
+    if (ok)
+    {
+        ui->listWidgetLocations->addItem(tag);
+    }
+}
+
+void MainWindow::on_pushButtonDelLocation_clicked()
+{
+    if (!ui->listWidgetLocations->currentItem())
+        return;
+
+    QString content = tr("确定要删除标签\"");
+    content += ui->listWidgetLocations->currentItem()->text();
+    content += tr("\"吗?");
+    QMessageBox::StandardButton res = QMessageBox::question(this,
+                                     tr("删除确认"),
+                                     content,
+                                     QMessageBox::Yes | QMessageBox::No,
+                                     QMessageBox::Yes);
+
+    if(res == QMessageBox::Yes)
+    {
+        ui->listWidgetLocations->takeItem(ui->listWidgetLocations->currentIndex().row());
+    }
+}
+
+void MainWindow::on_pushButtonLocationUp_clicked()
+{
+    QListWidgetItem *currentItem = ui->listWidgetLocations->currentItem();
+    if (currentItem == NULL)
+        return;
+
+    int row = ui->listWidgetLocations->currentRow();
+    if (row == 0)
+        return;
+
+    ui->listWidgetLocations->takeItem(row);
+    ui->listWidgetLocations->insertItem(--row, currentItem);
+    ui->listWidgetLocations->setCurrentRow(row);
+}
+
+void MainWindow::on_pushButtonLocationDown_clicked()
+{
+    QListWidgetItem *currentItem = ui->listWidgetLocations->currentItem();
+    if (currentItem == NULL)
+        return;
+
+    int row = ui->listWidgetLocations->currentRow();
+    if (row == ui->listWidgetLocations->count() - 1)
+        return;
+
+    ui->listWidgetLocations->takeItem(row);
+    ui->listWidgetLocations->insertItem(++row, currentItem);
+    ui->listWidgetLocations->setCurrentRow(row);
+}
+
+void MainWindow::on_pushButtonTagSettingExport_clicked()
+{
+
+}
+
+void MainWindow::on_pushButtonLocationSettingExport_clicked()
+{
+
+}
+
+void MainWindow::on_pushButtonResetToDefaultValue_clicked()
+{
+
+}
+
+void MainWindow::on_buttonExportSettings_clicked()
+{
+
+}
+
+void MainWindow::on_pushButtonDeviceSettingsSave_clicked()
+{
+
 }

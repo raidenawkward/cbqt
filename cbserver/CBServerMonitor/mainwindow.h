@@ -52,9 +52,24 @@ private slots:
     void on_tableWidget_cellDoubleClicked(int, int);
     void on_buttonRemove_clicked();
     void on_buttonExport_clicked();
+    void on_pushButtonNewTag_clicked();
+    void on_pushButtonDelTag_clicked();
+    void on_pushButtonTagUp_clicked();
+    void on_pushButtonTagDown_clicked();
+    void on_listWidgetLeftButtons_doubleClicked(const QModelIndex &index);
+    void on_pushButtonNewLocation_clicked();
+    void on_pushButtonDelLocation_clicked();
+    void on_pushButtonLocationUp_clicked();
+    void on_pushButtonLocationDown_clicked();
+    void on_pushButtonTagSettingExport_clicked();
+    void on_pushButtonLocationSettingExport_clicked();
+    void on_pushButtonResetToDefaultValue_clicked();
+    void on_buttonExportSettings_clicked();
+    void on_pushButtonDeviceSettingsSave_clicked();
 
 private:
     void initTabWidget();
+    void initDeviceCharSetComboBox();
     void refreshMenuItemList();
     bool exportDir(const QString dir);
 
