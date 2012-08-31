@@ -16,7 +16,8 @@ SOURCES += main.cpp\
     cbglobal.cpp \
     cbsetting.cpp \
     cbleftbuttonsetting.cpp \
-    cblocationsettings.cpp
+    cblocationsettings.cpp \
+    cbdeviceappsettings.cpp
 
 HEADERS  += mainwindow.h \
     dishinfodialog.h \
@@ -24,7 +25,8 @@ HEADERS  += mainwindow.h \
     cbdefine.h \
     cbsetting.h \
     cbleftbuttonsetting.h \
-    cblocationsettings.h
+    cblocationsettings.h \
+    cbdeviceappsettings.h
 
 FORMS    += mainwindow.ui \
     dishinfodialog.ui

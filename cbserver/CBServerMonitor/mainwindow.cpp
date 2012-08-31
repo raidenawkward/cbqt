@@ -18,7 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _engine(NULL),
     _settingsHasChanged(false),
     _settingsLeftButton(NULL),
-    _settingsLocation(NULL)
+    _settingsLocation(NULL),
+    _settingsDeviceApp(NULL)
 {
     ui->setupUi(this);
     refreshMenuItemList();
@@ -398,7 +399,7 @@ void MainWindow::initDeviceCharSetComboBox()
         else
             break;
     }
-    ui->comboBoxDeviceCharSet->setEditText(CB_DEFAULT_DEVICE_CHARSET);
+    ui->comboBoxDeviceCharSet->setEditText(CB_SETTINGS_XML_ENCODING_VAL);
 }
 
 void MainWindow::on_pushButtonNewLocation_clicked()
@@ -495,13 +496,14 @@ void MainWindow::on_pushButtonResetToDefaultValue_clicked()
     if(res != QMessageBox::Yes)
         return;
 
-    ui->spinBoxFontSizeLeftButton->setValue(CB_DEFAULT_LEFT_BUTTON_FONT_SIZE);
-    ui->spinBoxMenuItemCol->setValue(CB_DEFAULT_ITEM_COL);
-    ui->spinBoxMaxItemOrderedCount->setValue(CB_DEFAULT_DISH_ITEM_ORDER_MAX_COUNT);
+    ui->spinBoxFontSizeLeftButton->setValue(QString(CB_SETTINGS_LEFT_BUTTON_TEXT_SIZE_VAL).toInt());
+    ui->spinBoxMenuItemCol->setValue(QString(CB_SETTINGS_GRIDVIEW_COLUMN_COUNT_VAL).toInt());
+    ui->spinBoxMaxItemOrderedCount->setValue(QString(CB_SETTINGS_ORDERING_DIALOG_MAX_ITEM_COUNT_VAL).toInt());
     initDeviceCharSetComboBox();
 
     loadLeftButtonTags();
     loadLocationTags();
+    loadDeviceAppSettings();
 
     slt_setSettingsHasBeenChangedStatus(false);
 }
@@ -537,6 +539,9 @@ bool MainWindow::loadDeviceSettings()
     if (!loadLocationTags())
         return false;
 
+    if (!loadDeviceAppSettings())
+        return false;
+
     return true;
 }
 
@@ -549,6 +554,9 @@ bool MainWindow::saveDeviceSettings()
         return false;
 
     if (!saveLocationTags())
+        return false;
+
+    if (!saveDeviceAppSettings())
         return false;
 
     _settingsHasChanged = false;
@@ -636,6 +644,54 @@ bool MainWindow::saveLocationTags()
         return false;
 
     return true;
+}
+
+bool MainWindow::loadDeviceAppSettings()
+{
+    if (_settingsDeviceApp == NULL)
+    {
+        QString settingFilePath = ui->lineEditSettingsDir->text().trimmed()
+                + QString(CBPATH_SPLITOR)
+                + ui->lineEditSettingsDeviceFile->text().trimmed();
+        _settingsDeviceApp = new CBDeviceAppSettings();
+        _settingsDeviceApp->setSettingPath(settingFilePath);
+        _settingsDeviceApp->setSettingCodec(CB_DEFAULT_XML_CODED);
+    }
+
+    if (!_settingsDeviceApp->load())
+        return false;
+
+    ui->spinBoxFontSizeLeftButton->setValue(_settingsDeviceApp->get(CB_SETTINGS_LEFT_BUTTON_TEXT_SIZE).toInt());
+    ui->spinBoxMenuItemCol->setValue(_settingsDeviceApp->get(CB_SETTINGS_GRIDVIEW_COLUMN_COUNT).toInt());
+    ui->spinBoxMaxItemOrderedCount->setValue(_settingsDeviceApp->get(CB_SETTINGS_ORDERING_DIALOG_MAX_ITEM_COUNT).toInt());
+    for (int i = 0; i < ui->comboBoxDeviceCharSet->count(); ++i)
+    {
+        if (ui->comboBoxDeviceCharSet->itemText(i) == _settingsDeviceApp->get(CB_SETTINGS_XML_ENCODING))
+        {
+            ui->comboBoxDeviceCharSet->setCurrentIndex(i);
+        }
+    }
+
+    return true;
+}
+
+bool MainWindow::saveDeviceAppSettings()
+{
+    if (_settingsDeviceApp == NULL)
+        return false;
+
+    _settingsDeviceApp->set(QString(CB_SETTINGS_XML_ENCODING), ui->comboBoxDeviceCharSet->currentText().trimmed());
+    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR), QString(CB_SETTINGS_SOURCE_DIR_VAL));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR_DISHES), QString(CB_SETTINGS_SOURCE_DIR_DISHES_VAL));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR_ORDERS), QString(CB_SETTINGS_SOURCE_DIR_ORDERS_VAL));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR_SETTINGS), QString(CB_SETTINGS_SOURCE_DIR_SETTINGS_VAL));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_LEFT_BUTTONS_TAGS_FILE), QString(CB_SETTINGS_LEFT_BUTTONS_TAGS_FILE_VAL));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_ORDER_LOCATIONS_FILE), QString(CB_SETTINGS_ORDER_LOCATIONS_FILE_VAL));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_LEFT_BUTTON_TEXT_SIZE), QString::number(ui->spinBoxFontSizeLeftButton->value()));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_GRIDVIEW_COLUMN_COUNT), QString::number(ui->spinBoxMenuItemCol->value()));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_ORDERING_DIALOG_MAX_ITEM_COUNT), QString::number(ui->spinBoxMaxItemOrderedCount->value()));
+
+    return _settingsDeviceApp->save();
 }
 
 void MainWindow::initTabWidgetDeviceSettings()

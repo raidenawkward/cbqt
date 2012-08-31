@@ -9,6 +9,7 @@
 #include "cbsetting.h"
 #include "cbleftbuttonsetting.h"
 #include "cblocationsettings.h"
+#include "cbdeviceappsettings.h"
 
 enum DISH_TABLE_HEADER
 {
@@ -98,6 +99,8 @@ private:
     bool saveLeftButtonTags();
     bool loadLocationTags();
     bool saveLocationTags();
+    bool loadDeviceAppSettings();
+    bool saveDeviceAppSettings();
 
 private:
     Ui::MainWindow *ui;
@@ -105,6 +108,7 @@ private:
     bool _settingsHasChanged;
     CBLeftButtonSetting *_settingsLeftButton;
     CBLocationSettings *_settingsLocation;
+    CBDeviceAppSettings *_settingsDeviceApp;
 };
 
 #endif // MAINWINDOW_H
