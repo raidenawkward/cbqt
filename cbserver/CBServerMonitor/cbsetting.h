@@ -24,22 +24,4 @@ protected:
     QString fileCodec;
 };
 
-class CBLeftButtonSetting : public CBSetting, public CBXmlReaderCallback
-{
-public:
-    CBLeftButtonSetting();
-    CBLeftButtonSetting(const QString &path);
-
-    virtual bool load();
-    virtual bool save();
-
-    virtual bool onTagDetected(QString tag, QString content, const QXmlStreamAttributes attrs);
-
-    void setTags(const QStringList &tags);
-    QStringList getTags();
-
-private:
-    QStringList _tags;
-};
-
 #endif // CBSETTING_H

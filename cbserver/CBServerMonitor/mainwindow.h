@@ -7,6 +7,8 @@
 #include "cbmenuitem.h"
 #include "cbglobal.h"
 #include "cbsetting.h"
+#include "cbleftbuttonsetting.h"
+#include "cblocationsettings.h"
 
 enum DISH_TABLE_HEADER
 {
@@ -92,11 +94,17 @@ private:
     void refreshMenuItemList();
     bool exportDir(const QString dir);
 
+    bool loadLeftButtonTags();
+    bool saveLeftButtonTags();
+    bool loadLocationTags();
+    bool saveLocationTags();
+
 private:
     Ui::MainWindow *ui;
     CBEngine *_engine;
     bool _settingsHasChanged;
     CBLeftButtonSetting *_settingsLeftButton;
+    CBLocationSettings *_settingsLocation;
 };
 
 #endif // MAINWINDOW_H

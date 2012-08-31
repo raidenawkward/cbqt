@@ -35,5 +35,7 @@ static const char s_cb_device_charset[2][20] = {
 
 #define XML_TAG_LEFT_BUTTON_LIST "LeftButtonList"
 #define XML_TAG_LEFT_BUTTON "LeftButton"
+#define XML_TAG_ORDER_LOCATION_LIST "OrderLocationList"
+#define XML_TAG_ORDER_LOCATION "OrderLocation"
 
 #endif // CBDEFINE_H

@@ -17,7 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     _engine(NULL),
     _settingsHasChanged(false),
-    _settingsLeftButton(NULL)
+    _settingsLeftButton(NULL),
+    _settingsLocation(NULL)
 {
     ui->setupUi(this);
     refreshMenuItemList();
@@ -498,6 +499,11 @@ void MainWindow::on_pushButtonResetToDefaultValue_clicked()
     ui->spinBoxMenuItemCol->setValue(CB_DEFAULT_ITEM_COL);
     ui->spinBoxMaxItemOrderedCount->setValue(CB_DEFAULT_DISH_ITEM_ORDER_MAX_COUNT);
     initDeviceCharSetComboBox();
+
+    loadLeftButtonTags();
+    loadLocationTags();
+
+    slt_setSettingsHasBeenChangedStatus(false);
 }
 
 void MainWindow::on_buttonExportSettings_clicked()
@@ -507,7 +513,10 @@ void MainWindow::on_buttonExportSettings_clicked()
 
 void MainWindow::on_pushButtonDeviceSettingsSave_clicked()
 {
-    saveDeviceSettings();
+    if (!saveDeviceSettings())
+        return;
+
+    slt_setSettingsHasBeenChangedStatus(false);
 }
 
 void MainWindow::on_pushButtonDeviceSettingsRefresh_clicked()
@@ -522,6 +531,35 @@ void MainWindow::refreshDeviceSettings()
 
 bool MainWindow::loadDeviceSettings()
 {
+    if (!loadLeftButtonTags())
+        return false;
+
+    if (!loadLocationTags())
+        return false;
+
+    return true;
+}
+
+bool MainWindow::saveDeviceSettings()
+{
+    if (!_settingsHasChanged)
+        return true;
+
+    if (!saveLeftButtonTags())
+        return false;
+
+    if (!saveLocationTags())
+        return false;
+
+    _settingsHasChanged = false;
+
+    return true;
+}
+
+bool MainWindow::loadLeftButtonTags()
+{
+    ui->listWidgetLeftButtons->clear();
+
     if (_settingsLeftButton == NULL)
     {
         QString settingFilePath = ui->lineEditSettingsDir->text().trimmed()
@@ -543,11 +581,8 @@ bool MainWindow::loadDeviceSettings()
     return true;
 }
 
-bool MainWindow::saveDeviceSettings()
+bool MainWindow::saveLeftButtonTags()
 {
-    if (!_settingsHasChanged)
-        return true;
-
     if (_settingsLeftButton == NULL)
         return false;
 
@@ -559,8 +594,46 @@ bool MainWindow::saveDeviceSettings()
     if (!_settingsLeftButton->save())
         return false;
 
-    _settingsHasChanged = false;
-    slt_setSettingsHasBeenChangedStatus(false);
+    return true;
+}
+
+bool MainWindow::loadLocationTags()
+{
+    ui->listWidgetLocations->clear();
+
+    if (_settingsLocation == NULL)
+    {
+        QString settingFilePath = ui->lineEditSettingsDir->text().trimmed()
+                + QString(CBPATH_SPLITOR)
+                + ui->lineEditLocationSettingFileName->text().trimmed();
+        _settingsLocation = new CBLocationSettings();
+        _settingsLocation->setSettingPath(settingFilePath);
+        _settingsLocation->setSettingCodec(CB_DEFAULT_XML_CODED);
+    }
+
+    if (!_settingsLocation->load())
+        return false;
+
+    QStringList locationTags = _settingsLocation->getTags();
+
+    for (int i = 0; i < locationTags.count(); ++i)
+        ui->listWidgetLocations->addItem(locationTags.at(i));
+
+    return true;
+}
+
+bool MainWindow::saveLocationTags()
+{
+    if (_settingsLocation == NULL)
+        return false;
+
+    QStringList locationTags;
+    for (int i = 0; i < ui->listWidgetLocations->count(); ++i)
+        locationTags.append(ui->listWidgetLocations->item(i)->text().trimmed());
+    _settingsLocation->setTags(locationTags);
+
+    if (!_settingsLocation->save())
+        return false;
 
     return true;
 }

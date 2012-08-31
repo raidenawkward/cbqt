@@ -14,13 +14,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     dishinfodialog.cpp \
     cbglobal.cpp \
-    cbsetting.cpp
+    cbsetting.cpp \
+    cbleftbuttonsetting.cpp \
+    cblocationsettings.cpp
 
 HEADERS  += mainwindow.h \
     dishinfodialog.h \
     cbglobal.h \
     cbdefine.h \
-    cbsetting.h
+    cbsetting.h \
+    cbleftbuttonsetting.h \
+    cblocationsettings.h
 
 FORMS    += mainwindow.ui \
     dishinfodialog.ui
