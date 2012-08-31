@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     _engine(NULL),
+    _settingsHasChanged(false),
     _settingsLeftButton(NULL)
 {
     ui->setupUi(this);
@@ -36,6 +37,8 @@ void MainWindow::showEvent(QShowEvent *)
 {
     refreshTabWidget();
     initTabWidgetDeviceSettings();
+
+    slt_setSettingsHasBeenChangedStatus(false);
 }
 
 QTableWidgetItem* MainWindow::generateTableItem(CBMenuItem *item, DISH_TABLE_HEADER header)
@@ -302,6 +305,7 @@ void MainWindow::on_pushButtonNewTag_clicked()
     if (ok)
     {
         ui->listWidgetLeftButtons->addItem(tag);
+        slt_settingsHasBeenChanged();
     }
 }
 
@@ -325,6 +329,7 @@ void MainWindow::on_listWidgetLeftButtons_doubleClicked(const QModelIndex &index
     if (ok)
     {
         ui->listWidgetLeftButtons->currentItem()->setText(tag);
+        slt_settingsHasBeenChanged();
     }
 }
 
@@ -345,6 +350,7 @@ void MainWindow::on_pushButtonDelTag_clicked()
     if(res == QMessageBox::Yes)
     {
         ui->listWidgetLeftButtons->takeItem(ui->listWidgetLeftButtons->currentIndex().row());
+        slt_settingsHasBeenChanged();
     }
 }
 
@@ -361,6 +367,8 @@ void MainWindow::on_pushButtonTagUp_clicked()
     ui->listWidgetLeftButtons->takeItem(row);
     ui->listWidgetLeftButtons->insertItem(--row, currentItem);
     ui->listWidgetLeftButtons->setCurrentRow(row);
+
+    slt_settingsHasBeenChanged();
 }
 
 void MainWindow::on_pushButtonTagDown_clicked()
@@ -376,6 +384,8 @@ void MainWindow::on_pushButtonTagDown_clicked()
     ui->listWidgetLeftButtons->takeItem(row);
     ui->listWidgetLeftButtons->insertItem(++row, currentItem);
     ui->listWidgetLeftButtons->setCurrentRow(row);
+
+    slt_settingsHasBeenChanged();
 }
 
 void MainWindow::initDeviceCharSetComboBox()
@@ -403,6 +413,7 @@ void MainWindow::on_pushButtonNewLocation_clicked()
     if (ok)
     {
         ui->listWidgetLocations->addItem(tag);
+        slt_settingsHasBeenChanged();
     }
 }
 
@@ -423,6 +434,7 @@ void MainWindow::on_pushButtonDelLocation_clicked()
     if(res == QMessageBox::Yes)
     {
         ui->listWidgetLocations->takeItem(ui->listWidgetLocations->currentIndex().row());
+        slt_settingsHasBeenChanged();
     }
 }
 
@@ -439,6 +451,8 @@ void MainWindow::on_pushButtonLocationUp_clicked()
     ui->listWidgetLocations->takeItem(row);
     ui->listWidgetLocations->insertItem(--row, currentItem);
     ui->listWidgetLocations->setCurrentRow(row);
+
+    slt_settingsHasBeenChanged();
 }
 
 void MainWindow::on_pushButtonLocationDown_clicked()
@@ -454,6 +468,8 @@ void MainWindow::on_pushButtonLocationDown_clicked()
     ui->listWidgetLocations->takeItem(row);
     ui->listWidgetLocations->insertItem(++row, currentItem);
     ui->listWidgetLocations->setCurrentRow(row);
+
+    slt_settingsHasBeenChanged();
 }
 
 void MainWindow::on_pushButtonTagSettingExport_clicked()
@@ -529,6 +545,9 @@ bool MainWindow::loadDeviceSettings()
 
 bool MainWindow::saveDeviceSettings()
 {
+    if (!_settingsHasChanged)
+        return true;
+
     if (_settingsLeftButton == NULL)
         return false;
 
@@ -539,6 +558,9 @@ bool MainWindow::saveDeviceSettings()
 
     if (!_settingsLeftButton->save())
         return false;
+
+    _settingsHasChanged = false;
+    slt_setSettingsHasBeenChangedStatus(false);
 
     return true;
 }
@@ -570,4 +592,78 @@ void MainWindow::on_tabMainTab_currentChanged(int)
 
     }
 
+}
+
+void MainWindow::slt_settingsHasBeenChanged()
+{
+    if (!_settingsHasChanged)
+        _settingsHasChanged = true;
+
+    if (_settingsHasChanged)
+    {
+        slt_setSettingsHasBeenChangedStatus(true);
+    }
+}
+
+void MainWindow::slt_setSettingsHasBeenChangedStatus(bool hasChanged)
+{
+    if (hasChanged)
+    {
+        QString text = ui->pushButtonDeviceSettingsSave->text();
+        if (!text.startsWith("*"))
+        {
+            text = QString("*") + text;
+            ui->pushButtonDeviceSettingsSave->setText(text);
+        }
+    }
+    else
+    {
+        QString text = ui->pushButtonDeviceSettingsSave->text();
+        if (text.startsWith("*"))
+        {
+            text = text.mid(1);
+            ui->pushButtonDeviceSettingsSave->setText(text);
+        }
+    }
+
+}
+
+void MainWindow::on_spinBoxFontSizeLeftButton_valueChanged(int)
+{
+    slt_settingsHasBeenChanged();
+}
+
+void MainWindow::on_spinBoxMenuItemCol_valueChanged(int)
+{
+    slt_settingsHasBeenChanged();
+}
+
+void MainWindow::on_spinBoxMaxItemOrderedCount_valueChanged(int)
+{
+    slt_settingsHasBeenChanged();
+}
+
+void MainWindow::on_comboBoxDeviceCharSet_currentIndexChanged(int)
+{
+    slt_settingsHasBeenChanged();
+}
+
+void MainWindow::on_lineEditTagSettingFileName_textChanged(const QString &)
+{
+    slt_settingsHasBeenChanged();
+}
+
+void MainWindow::on_lineEditSettingsDeviceFile_textChanged(const QString &)
+{
+    slt_settingsHasBeenChanged();
+}
+
+void MainWindow::on_lineEditSettingsDir_textChanged(const QString &)
+{
+    slt_settingsHasBeenChanged();
+}
+
+void MainWindow::on_lineEditLocationSettingFileName_textChanged(const QString &)
+{
+    slt_settingsHasBeenChanged();
 }

@@ -48,6 +48,8 @@ protected:
 
 protected slots:
     void slt_menuItemUpdate(CBMenuItem* item);
+    void slt_settingsHasBeenChanged();
+    void slt_setSettingsHasBeenChangedStatus(bool hasChanged);
 
 private slots:
     void on_buttonAdd_clicked();
@@ -74,6 +76,14 @@ private slots:
     void on_pushButtonDeviceSettingsRefresh_clicked();
 
     void on_tabMainTab_currentChanged(int index);
+    void on_spinBoxFontSizeLeftButton_valueChanged(int arg1);
+    void on_spinBoxMenuItemCol_valueChanged(int arg1);
+    void on_spinBoxMaxItemOrderedCount_valueChanged(int arg1);
+    void on_comboBoxDeviceCharSet_currentIndexChanged(int index);
+    void on_lineEditTagSettingFileName_textChanged(const QString &arg1);
+    void on_lineEditSettingsDeviceFile_textChanged(const QString &arg1);
+    void on_lineEditSettingsDir_textChanged(const QString &arg1);
+    void on_lineEditLocationSettingFileName_textChanged(const QString &arg1);
 
 private:
     void initTabWidgetDish();
@@ -85,6 +95,7 @@ private:
 private:
     Ui::MainWindow *ui;
     CBEngine *_engine;
+    bool _settingsHasChanged;
     CBLeftButtonSetting *_settingsLeftButton;
 };
 
