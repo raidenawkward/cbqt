@@ -585,7 +585,7 @@ void MainWindow::on_tabMainTab_currentChanged(int)
     }
     else if (currentTab == ui->tabDeviceSettings)
     {
-        initTabWidgetDeviceSettings();
+
     }
     else if (currentTab == ui->tabPCSettings)
     {
