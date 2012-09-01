@@ -25,12 +25,21 @@ MainWindow::MainWindow(QWidget *parent) :
     refreshMenuItemList();
 
     connect(ui->actionMenuFileExportAll, SIGNAL(triggered()), this, SLOT(on_menuFileExportAllTriggered()));
+
     connect(ui->actionMenuOrder, SIGNAL(triggered()), this, SLOT(on_menuOrderTriggered()));
+
     connect(ui->actionMenuDish, SIGNAL(triggered()), this, SLOT(on_menuDishTriggered()));
     connect(ui->actionMenuDishExport, SIGNAL(triggered()), this, SLOT(on_menuDishExportTriggered()));
+
     connect(ui->actionMenuDevice, SIGNAL(triggered()), this, SLOT(on_menuDeviceTriggered()));
     connect(ui->actionMenuDeviceExport, SIGNAL(triggered()), this, SLOT(on_menuDeviceExportTriggered()));
+
     connect(ui->actionMenuPC, SIGNAL(triggered()), this, SLOT(on_menuPCTriggered()));
+
+    connect(ui->actionMenuExportDishes, SIGNAL(triggered()), this, SLOT(on_menuDishExportTriggered()));
+    connect(ui->actionMenuExportSettings, SIGNAL(triggered()), this, SLOT(on_menuDeviceExportTriggered()));
+    connect(ui->actionMenuExportExportAll, SIGNAL(triggered()), this, SLOT(on_menuFileExportAllTriggered()));
+
     connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(on_menuHelpTriggered()));
     connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(on_menuAboutTriggered()));
 }
@@ -922,7 +931,7 @@ void MainWindow::on_menuDishTriggered()
 
 void MainWindow::on_menuDishExportTriggered()
 {
-
+    on_buttonExport_clicked();
 }
 
 void MainWindow::on_menuDeviceTriggered()
@@ -932,7 +941,7 @@ void MainWindow::on_menuDeviceTriggered()
 
 void MainWindow::on_menuDeviceExportTriggered()
 {
-
+    on_buttonExportSettings_clicked();
 }
 
 void MainWindow::on_menuPCTriggered()
