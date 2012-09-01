@@ -240,12 +240,6 @@ void MainWindow::on_buttonEdit_clicked()
     dialog.exec();
 }
 
-void MainWindow::on_tableWidgetDish_doubleClicked(const QModelIndex &index)
-{
-    Q_UNUSED(index);
-    on_buttonEdit_clicked();
-}
-
 void MainWindow::on_buttonRefresh_clicked()
 {
     refreshMenuItemList();
