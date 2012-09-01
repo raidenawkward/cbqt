@@ -4,6 +4,7 @@
 #include <QFileInfo>
 #include <QFileInfoList>
 #include <QStringList>
+#include <QDateTime>
 #include <QDebug>
 
 #include "cbxmlwriter.h"
@@ -300,4 +301,9 @@ bool CBGlobal::writeMenuItemXml(CBMenuItem* item)
     writer.end();
 
     return true;
+}
+
+QString CBGlobal::getCurrentTimeStamp()
+{
+    return QString::number(QDateTime::currentMSecsSinceEpoch());
 }

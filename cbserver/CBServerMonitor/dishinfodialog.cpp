@@ -31,6 +31,9 @@ DishInfoDialog::DishInfoDialog(QWidget *parent) :
     connect(ui->buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()),this,SLOT(slt_apply()));
     connect(ui->buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(clicked()),this,SLOT(slt_cancel()));
     connect(ui->buttonBox->button(QDialogButtonBox::Reset), SIGNAL(clicked()),this,SLOT(slt_reset()));
+
+    // default dish id set here
+    ui->lineEditId->setText(CBGlobal::getCurrentTimeStamp());
 }
 
 DishInfoDialog::~DishInfoDialog()

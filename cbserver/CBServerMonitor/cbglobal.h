@@ -23,6 +23,8 @@ public:
     static bool removeMenuItem(CBMenuItem *item);
 
     static bool writeMenuItemXml(CBMenuItem* item);
+
+    static QString getCurrentTimeStamp();
 };
 
 #endif // CBGLOBAL_H
