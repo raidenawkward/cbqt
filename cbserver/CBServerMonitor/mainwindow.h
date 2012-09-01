@@ -108,6 +108,7 @@ private:
     bool exportLeftButtonSettingFile(const QString &dir);
     bool exportLocationsSettingFile(const QString &dir);
     bool exportSettingsDir(const QString &dir);
+    bool exportAll(const QString &dir);
 
     bool loadLeftButtonTags();
     bool saveLeftButtonTags();

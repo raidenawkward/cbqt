@@ -35,6 +35,7 @@ QString CBGlobal::getFileName(const QString path)
 
     if (index == -1)
         return path;
+
     return path.mid(index);
 }
 
@@ -117,12 +118,14 @@ bool CBGlobal::rmDir(const QString dir)
 bool CBGlobal::mkdir_P(const QString &dirPath)
 {
     QStringList dirs = dirPath.split(CBPATH_SPLITOR);
-    QDir dir(dirs.at(0));
-    QString current = dir.currentPath();
+    QDir dir(dirs.at(0).isEmpty()? CBPATH_SPLITOR : dirs.at(0));
+
+    QString current = dir.path();
     for (int i = 0; i < dirs.count(); ++i)
     {
         current += QString(CBPATH_SPLITOR) + dirs.at(i);
-        if (!dir.exists())
+
+        if (!dir.exists(current))
         {
             if (!dir.mkdir(current))
             {
@@ -243,7 +246,7 @@ bool CBGlobal::writeMenuItemXml(CBMenuItem* item)
     if (!item)
         return false;
 
-    qDebug()<<item->getRecordDir() + QString(CBPATH_SPLITOR) + item->getRecordFile();
+    //qDebug()<<item->getRecordDir() + QString(CBPATH_SPLITOR) + item->getRecordFile();
     CBXmlWriter writer(item->getRecordDir() + QString(CBPATH_SPLITOR) + item->getRecordFile());
     writer.setCodec(CB_DEFAULT_XML_CODED);
     if (!writer.start())

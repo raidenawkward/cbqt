@@ -338,6 +338,26 @@ bool MainWindow::exportSettingsDir(const QString &dir)
     return res;
 }
 
+bool MainWindow::exportAll(const QString &dir)
+{
+    if (dir.isEmpty())
+        return false;
+
+    QString rootDirName = CBGlobal::getFileName(_settingsDeviceApp->get(CB_SETTINGS_SOURCE_DIR));
+    QString targetDir = CBGlobal::combinePath(dir, rootDirName);
+
+    if (!CBGlobal::mkdir_P(targetDir))
+        return false;
+
+    if (!exportSettingsDir(targetDir))
+        return false;
+
+    if (!exportDishDir(targetDir))
+        return false;
+
+    return true;
+}
+
 void MainWindow::on_buttonExport_clicked()
 {
     QString path = QFileDialog::getExistingDirectory(this,
@@ -930,7 +950,21 @@ void MainWindow::on_lineEditLocationSettingFileName_textChanged(const QString &)
 
 void MainWindow::slt_menuFileExportAllTriggered()
 {
+    QString path = QFileDialog::getExistingDirectory(this,
+                                            tr("选择导出路径"),
+                                            tr("."));
 
+    if (path.isEmpty())
+        return;
+
+    bool res = exportAll(path);
+    if (!res)
+    {
+        QMessageBox::critical(this,
+                              tr("错误"),
+                              tr("在导出过程出发生错误"),
+                              QMessageBox::Ok);
+    }
 }
 
 void MainWindow::slt_menuFileExitTriggered()
