@@ -24,24 +24,24 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     refreshMenuItemList();
 
-    connect(ui->actionMenuFileExportAll, SIGNAL(triggered()), this, SLOT(on_menuFileExportAllTriggered()));
+    connect(ui->actionMenuFileExportAll, SIGNAL(triggered()), this, SLOT(slt_menuFileExportAllTriggered()));
 
-    connect(ui->actionMenuOrder, SIGNAL(triggered()), this, SLOT(on_menuOrderTriggered()));
+    connect(ui->actionMenuOrder, SIGNAL(triggered()), this, SLOT(slt_menuOrderTriggered()));
 
-    connect(ui->actionMenuDish, SIGNAL(triggered()), this, SLOT(on_menuDishTriggered()));
-    connect(ui->actionMenuDishExport, SIGNAL(triggered()), this, SLOT(on_menuDishExportTriggered()));
+    connect(ui->actionMenuDish, SIGNAL(triggered()), this, SLOT(slt_menuDishTriggered()));
+    connect(ui->actionMenuDishExport, SIGNAL(triggered()), this, SLOT(slt_menuDishExportTriggered()));
 
-    connect(ui->actionMenuDevice, SIGNAL(triggered()), this, SLOT(on_menuDeviceTriggered()));
-    connect(ui->actionMenuDeviceExport, SIGNAL(triggered()), this, SLOT(on_menuDeviceExportTriggered()));
+    connect(ui->actionMenuDevice, SIGNAL(triggered()), this, SLOT(slt_menuDeviceTriggered()));
+    connect(ui->actionMenuDeviceExport, SIGNAL(triggered()), this, SLOT(slt_menuDeviceExportTriggered()));
 
-    connect(ui->actionMenuPC, SIGNAL(triggered()), this, SLOT(on_menuPCTriggered()));
+    connect(ui->actionMenuPC, SIGNAL(triggered()), this, SLOT(slt_menuPCTriggered()));
 
-    connect(ui->actionMenuExportDishes, SIGNAL(triggered()), this, SLOT(on_menuDishExportTriggered()));
-    connect(ui->actionMenuExportSettings, SIGNAL(triggered()), this, SLOT(on_menuDeviceExportTriggered()));
-    connect(ui->actionMenuExportExportAll, SIGNAL(triggered()), this, SLOT(on_menuFileExportAllTriggered()));
+    connect(ui->actionMenuExportDishes, SIGNAL(triggered()), this, SLOT(slt_menuDishExportTriggered()));
+    connect(ui->actionMenuExportSettings, SIGNAL(triggered()), this, SLOT(slt_menuDeviceExportTriggered()));
+    connect(ui->actionMenuExportExportAll, SIGNAL(triggered()), this, SLOT(slt_menuFileExportAllTriggered()));
 
-    connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(on_menuHelpTriggered()));
-    connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(on_menuAboutTriggered()));
+    connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(slt_menuHelpTriggered()));
+    connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(slt_menuAboutTriggered()));
 }
 
 MainWindow::~MainWindow()
@@ -252,7 +252,7 @@ void MainWindow::on_buttonRefresh_clicked()
     refreshTabWidget();
 }
 
-void MainWindow::on_tableWidget_cellDoubleClicked(int, int)
+void MainWindow::on_tableWidgetDish_cellDoubleClicked(int, int)
 {
     on_buttonEdit_clicked();
 }
@@ -394,6 +394,30 @@ void MainWindow::on_listWidgetLeftButtons_doubleClicked(const QModelIndex &index
     if (ok)
     {
         ui->listWidgetLeftButtons->currentItem()->setText(tag);
+        slt_settingsHasBeenChanged();
+    }
+}
+
+void MainWindow::on_listWidgetLocations_doubleClicked(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return;
+
+    if (!ui->listWidgetLocations->currentItem())
+        return;
+
+    bool ok = false;
+    QString text = ui->listWidgetLocations->currentItem()->text();
+    QString tag = QInputDialog::getText(this,
+                                tr("修改位置"),
+                                tr("位置名称:"),
+                                QLineEdit::Normal,
+                                text,
+                                &ok);
+
+    if (ok)
+    {
+        ui->listWidgetLocations->currentItem()->setText(tag);
         slt_settingsHasBeenChanged();
     }
 }
@@ -624,11 +648,6 @@ void MainWindow::on_pushButtonDeviceSettingsSave_clicked()
         return;
 
     slt_setSettingsHasBeenChangedStatus(false);
-}
-
-void MainWindow::on_pushButtonDeviceSettingsRefresh_clicked()
-{
-    loadDeviceSettings();
 }
 
 void MainWindow::refreshDeviceSettings()
@@ -909,52 +928,52 @@ void MainWindow::on_lineEditLocationSettingFileName_textChanged(const QString &)
     slt_settingsHasBeenChanged();
 }
 
-void MainWindow::on_menuFileExportAllTriggered()
+void MainWindow::slt_menuFileExportAllTriggered()
 {
 
 }
 
-void MainWindow::on_menuFileExitTriggered()
+void MainWindow::slt_menuFileExitTriggered()
 {
-
+    // function not used
 }
 
-void MainWindow::on_menuOrderTriggered()
+void MainWindow::slt_menuOrderTriggered()
 {
-
+    ui->tabMainTab->setCurrentWidget(ui->tabOrders);
 }
 
-void MainWindow::on_menuDishTriggered()
+void MainWindow::slt_menuDishTriggered()
 {
-
+    ui->tabMainTab->setCurrentWidget(ui->tabDishes);
 }
 
-void MainWindow::on_menuDishExportTriggered()
+void MainWindow::slt_menuDishExportTriggered()
 {
     on_buttonExport_clicked();
 }
 
-void MainWindow::on_menuDeviceTriggered()
+void MainWindow::slt_menuDeviceTriggered()
 {
-
+    ui->tabMainTab->setCurrentWidget(ui->tabDeviceSettings);
 }
 
-void MainWindow::on_menuDeviceExportTriggered()
+void MainWindow::slt_menuDeviceExportTriggered()
 {
     on_buttonExportSettings_clicked();
 }
 
-void MainWindow::on_menuPCTriggered()
+void MainWindow::slt_menuPCTriggered()
+{
+    ui->tabMainTab->setCurrentWidget(ui->tabPCSettings);
+}
+
+void MainWindow::slt_menuHelpTriggered()
 {
 
 }
 
-void MainWindow::on_menuHelpTriggered()
-{
-
-}
-
-void MainWindow::on_menuAboutTriggered()
+void MainWindow::slt_menuAboutTriggered()
 {
 
 }

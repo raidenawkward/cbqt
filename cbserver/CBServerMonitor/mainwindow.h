@@ -59,7 +59,7 @@ private slots:
     void on_buttonEdit_clicked();
     void on_tableWidgetDish_doubleClicked(const QModelIndex &index);
     void on_buttonRefresh_clicked();
-    void on_tableWidget_cellDoubleClicked(int, int);
+    void on_tableWidgetDish_cellDoubleClicked(int, int);
     void on_buttonRemove_clicked();
     void on_buttonExport_clicked();
     void on_pushButtonNewTag_clicked();
@@ -67,6 +67,7 @@ private slots:
     void on_pushButtonTagUp_clicked();
     void on_pushButtonTagDown_clicked();
     void on_listWidgetLeftButtons_doubleClicked(const QModelIndex &index);
+    void on_listWidgetLocations_doubleClicked(const QModelIndex &index);
     void on_pushButtonNewLocation_clicked();
     void on_pushButtonDelLocation_clicked();
     void on_pushButtonLocationUp_clicked();
@@ -76,7 +77,6 @@ private slots:
     void on_pushButtonResetToDefaultValue_clicked();
     void on_buttonExportSettings_clicked();
     void on_pushButtonDeviceSettingsSave_clicked();
-    void on_pushButtonDeviceSettingsRefresh_clicked();
 
     void on_tabMainTab_currentChanged(int index);
     void on_spinBoxFontSizeLeftButton_valueChanged(int arg1);
@@ -88,16 +88,16 @@ private slots:
     void on_lineEditSettingsDir_textChanged(const QString &arg1);
     void on_lineEditLocationSettingFileName_textChanged(const QString &arg1);
 
-    void on_menuFileExportAllTriggered();
-    void on_menuFileExitTriggered();
-    void on_menuOrderTriggered();
-    void on_menuDishTriggered();
-    void on_menuDishExportTriggered();
-    void on_menuDeviceTriggered();
-    void on_menuDeviceExportTriggered();
-    void on_menuPCTriggered();
-    void on_menuHelpTriggered();
-    void on_menuAboutTriggered();
+    void slt_menuFileExportAllTriggered();
+    void slt_menuFileExitTriggered();
+    void slt_menuOrderTriggered();
+    void slt_menuDishTriggered();
+    void slt_menuDishExportTriggered();
+    void slt_menuDeviceTriggered();
+    void slt_menuDeviceExportTriggered();
+    void slt_menuPCTriggered();
+    void slt_menuHelpTriggered();
+    void slt_menuAboutTriggered();
 
 private:
     void initTabWidgetDish();
