@@ -96,6 +96,7 @@ private:
     bool exportDishDir(const QString &dir);
     bool exportLeftButtonSettingFile(const QString &dir);
     bool exportLocationsSettingFile(const QString &dir);
+    bool exportSettingsDir(const QString &dir);
 
     bool loadLeftButtonTags();
     bool saveLeftButtonTags();
