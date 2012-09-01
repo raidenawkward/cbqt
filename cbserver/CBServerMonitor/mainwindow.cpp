@@ -284,7 +284,7 @@ bool MainWindow::exportLeftButtonSettingFile(const QString &dir)
 
     if (!dir.isEmpty())
     {
-        res = CBGlobal::copyDir(source, CBGlobal::combinePath(dir, fileName), true);
+        res = CBGlobal::copyFile(source, CBGlobal::combinePath(dir, fileName), true);
     }
 
     return res;
@@ -299,7 +299,7 @@ bool MainWindow::exportLocationsSettingFile(const QString &dir)
 
     if (!dir.isEmpty())
     {
-        res = CBGlobal::copyDir(source, CBGlobal::combinePath(dir, fileName), true);
+        res = CBGlobal::copyFile(source, CBGlobal::combinePath(dir, fileName), true);
     }
 
     return res;
@@ -513,7 +513,7 @@ void MainWindow::on_pushButtonTagSettingExport_clicked()
     if (path.isEmpty())
         return;
 
-    bool res = exportDishDir(path);
+    bool res = exportLeftButtonSettingFile(path);
     if (!res)
     {
         QMessageBox::critical(this,
@@ -525,7 +525,21 @@ void MainWindow::on_pushButtonTagSettingExport_clicked()
 
 void MainWindow::on_pushButtonLocationSettingExport_clicked()
 {
+    QString path = QFileDialog::getExistingDirectory(this,
+                                            tr("选择导出路径"),
+                                            tr("."));
 
+    if (path.isEmpty())
+        return;
+
+    bool res = exportLocationsSettingFile(path);
+    if (!res)
+    {
+        QMessageBox::critical(this,
+                              tr("错误"),
+                              tr("在导出过程出发生错误"),
+                              QMessageBox::Ok);
+    }
 }
 
 void MainWindow::on_pushButtonResetToDefaultValue_clicked()

@@ -76,6 +76,17 @@ bool CBGlobal::copyDir(const QString src, const QString dest, bool override)
     return true;
 }
 
+bool CBGlobal::copyFile(const QString src, const QString dest, bool override)
+{
+    if (!override)
+    {
+        if (QFile(src).exists())
+            return false;
+    }
+
+    return QFile::copy(src, dest);
+}
+
 bool CBGlobal::rmDir(const QString dir)
 {
     QDir directory(dir);
