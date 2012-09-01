@@ -1,5 +1,6 @@
 #include "cbleftbuttonsetting.h"
 #include <QDir>
+#include <QDebug>
 
 CBLeftButtonSetting::CBLeftButtonSetting()
 {
@@ -14,10 +15,13 @@ CBLeftButtonSetting::CBLeftButtonSetting(const QString &path)
 bool CBLeftButtonSetting::save()
 {
     QString settingFileDir = CBGlobal::getFileDir(this->getSettingPath());
-    if (!CBGlobal::mkdir_P(settingFileDir))
+    QDir dir(settingFileDir);
+
+    QString xmlFile = dir.currentPath() + QString(CBPATH_SPLITOR) + this->getSettingPath();
+    if (!CBGlobal::mkdir_P(CBGlobal::getFileDir(xmlFile)))
         return false;
 
-    CBXmlWriter writer(QDir::currentPath() + QString(CBPATH_SPLITOR) + this->getSettingPath());
+    CBXmlWriter writer(xmlFile);
     writer.setCodec(this->getSettingCodec());
 
     if (!writer.start())

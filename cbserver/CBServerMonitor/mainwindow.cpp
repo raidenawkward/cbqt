@@ -678,13 +678,21 @@ void MainWindow::refreshDeviceSettings()
 bool MainWindow::loadDeviceSettings()
 {
     if (!loadLeftButtonTags())
-        return false;
+        qDebug()<<"error when loading left button tags";
 
     if (!loadLocationTags())
-        return false;
+        qDebug()<<"error when loading locations";
 
     if (!loadDeviceAppSettings())
-        return false;
+        qDebug()<<"error when loading device settings";
+
+    QDir dirSettings(CB_SETTINGS_SOURCE_DIR_SETTINGS_VAL);
+    if (!dirSettings.exists())
+    {
+        qDebug()<<"settings dir not exists, saving a default copy";
+        saveDeviceSettings();
+        return true;
+    }
 
     return true;
 }
@@ -692,7 +700,11 @@ bool MainWindow::loadDeviceSettings()
 bool MainWindow::saveDeviceSettings()
 {
     if (!_settingsHasChanged)
-        return true;
+    {
+        QDir dirSettings(CB_SETTINGS_SOURCE_DIR_SETTINGS_VAL);
+        if (dirSettings.exists())
+            return true;
+    }
 
     if (!saveLeftButtonTags())
         return false;
