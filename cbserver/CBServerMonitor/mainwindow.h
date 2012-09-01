@@ -93,7 +93,9 @@ private:
     void initTabWidgetDeviceSettings();
     void initDeviceCharSetComboBox();
     void refreshMenuItemList();
-    bool exportDir(const QString dir);
+    bool exportDishDir(const QString &dir);
+    bool exportLeftButtonSettingFile(const QString &dir);
+    bool exportLocationsSettingFile(const QString &dir);
 
     bool loadLeftButtonTags();
     bool saveLeftButtonTags();

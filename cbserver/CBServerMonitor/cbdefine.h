@@ -3,7 +3,7 @@
 
 #define CBSERVERMONITOR_ROOT "lacarte"
 #define CBSERVERMONITOR_DISHES_DIR "dishes"
-#define CBSERVERMONITOR_SETTINGS_DIR "settings"
+#define CB_SETTINGS_SOURCE_DIR_SETTINGS_VAL "settings"
 
 #define CB_PLUGING_PATH "plugins"
 
@@ -40,18 +40,20 @@
 #define CB_SETTINGS_ORDERING_DIALOG_MAX_ITEM_COUNT "cb.settings.ordering.dialog.max.item.count"
 
 #define CB_SETTINGS_SOURCE_DIR_VAL "/sdcard/lacarte"
-#define CB_SETTINGS_SOURCE_DIR_SETTINGS_VAL "/sdcard/lacarte/settings"
-#define CB_SETTINGS_SOURCE_DIR_DISHES_VAL "/sdcard/lacarte/dishes"
-#define CB_SETTINGS_SOURCE_DIR_ORDERS_VAL "/sdcard/lacarte/orders"
+#define CB_SETTINGS_SOURCE_DIR_DISHES_VAL "dishes"
+#define CB_SETTINGS_SOURCE_DIR_ORDERS_VAL "orders"
+// not used yet
 #define CB_SETTINGS_LEFT_BUTTONS_TAGS_FILE_VAL "/sdcard/lacarte/settings/left_buttons.xml"
+// not used yet
 #define CB_SETTINGS_ORDER_LOCATIONS_FILE_VAL "/sdcard/lacarte/settings/order_locations.xml"
 #define CB_SETTINGS_XML_ENCODING_VAL "gb2312"
 #define CB_SETTINGS_LEFT_BUTTON_TEXT_SIZE_VAL "20"
 #define CB_SETTINGS_GRIDVIEW_COLUMN_COUNT_VAL "3"
 #define CB_SETTINGS_ORDERING_DIALOG_MAX_ITEM_COUNT_VAL "50"
 
+// not used yet
+#define CB_MAX_LEFT_BUTTON_COUNT 10
 
-#define CB_MAX_LEFT_BUTTON_COUNT 10 // not used yet
 #define CB_DEVICE_CHARSET_COUNT 2
 static const char s_cb_device_charset[2][20] = {
     "gb2312",

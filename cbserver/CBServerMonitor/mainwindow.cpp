@@ -262,7 +262,7 @@ void MainWindow::on_buttonRemove_clicked()
     }
 }
 
-bool MainWindow::exportDir(const QString dir)
+bool MainWindow::exportDishDir(const QString &dir)
 {
     bool res = false;
     QString name = CBGlobal::getFileName(CBSERVERMONITOR_DISHES_DIR);
@@ -270,6 +270,36 @@ bool MainWindow::exportDir(const QString dir)
     if (!dir.isEmpty())
     {
         res = CBGlobal::copyDir(CBSERVERMONITOR_DISHES_DIR, CBGlobal::combinePath(dir, name), true);
+    }
+
+    return res;
+}
+
+bool MainWindow::exportLeftButtonSettingFile(const QString &dir)
+{
+    bool res = false;
+
+    QString fileName = CBGlobal::getFileName(ui->lineEditTagSettingFileName->text().trimmed());
+    QString source = CBGlobal::combinePath(ui->lineEditSettingsDir->text().trimmed(), fileName);
+
+    if (!dir.isEmpty())
+    {
+        res = CBGlobal::copyDir(source, CBGlobal::combinePath(dir, fileName), true);
+    }
+
+    return res;
+}
+
+bool MainWindow::exportLocationsSettingFile(const QString &dir)
+{
+    bool res = false;
+
+    QString fileName = CBGlobal::getFileName(ui->lineEditLocationSettingFileName->text().trimmed());
+    QString source = CBGlobal::combinePath(ui->lineEditSettingsDir->text().trimmed(), fileName);
+
+    if (!dir.isEmpty())
+    {
+        res = CBGlobal::copyDir(source, CBGlobal::combinePath(dir, fileName), true);
     }
 
     return res;
@@ -284,7 +314,7 @@ void MainWindow::on_buttonExport_clicked()
     if (path.isEmpty())
         return;
 
-    bool res = exportDir(path);
+    bool res = exportDishDir(path);
     if (!res)
     {
         QMessageBox::critical(this,
@@ -476,7 +506,21 @@ void MainWindow::on_pushButtonLocationDown_clicked()
 
 void MainWindow::on_pushButtonTagSettingExport_clicked()
 {
+    QString path = QFileDialog::getExistingDirectory(this,
+                                            tr("选择导出路径"),
+                                            tr("."));
 
+    if (path.isEmpty())
+        return;
+
+    bool res = exportDishDir(path);
+    if (!res)
+    {
+        QMessageBox::critical(this,
+                              tr("错误"),
+                              tr("在导出过程出发生错误"),
+                              QMessageBox::Ok);
+    }
 }
 
 void MainWindow::on_pushButtonLocationSettingExport_clicked()
@@ -682,11 +726,18 @@ bool MainWindow::saveDeviceAppSettings()
 
     _settingsDeviceApp->set(QString(CB_SETTINGS_XML_ENCODING), ui->comboBoxDeviceCharSet->currentText().trimmed());
     _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR), QString(CB_SETTINGS_SOURCE_DIR_VAL));
-    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR_DISHES), QString(CB_SETTINGS_SOURCE_DIR_DISHES_VAL));
-    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR_ORDERS), QString(CB_SETTINGS_SOURCE_DIR_ORDERS_VAL));
-    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR_SETTINGS), QString(CB_SETTINGS_SOURCE_DIR_SETTINGS_VAL));
-    _settingsDeviceApp->set(QString(CB_SETTINGS_LEFT_BUTTONS_TAGS_FILE), QString(CB_SETTINGS_LEFT_BUTTONS_TAGS_FILE_VAL));
-    _settingsDeviceApp->set(QString(CB_SETTINGS_ORDER_LOCATIONS_FILE), QString(CB_SETTINGS_ORDER_LOCATIONS_FILE_VAL));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR_DISHES), CBGlobal::combinePath(QString(CB_SETTINGS_SOURCE_DIR_VAL), QString(CB_SETTINGS_SOURCE_DIR_DISHES_VAL)));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR_ORDERS), CBGlobal::combinePath(QString(CB_SETTINGS_SOURCE_DIR_VAL), QString(CB_SETTINGS_SOURCE_DIR_ORDERS_VAL)));
+
+    QString settingsDir = CBGlobal::combinePath(QString(CB_SETTINGS_SOURCE_DIR_VAL), QString(CB_SETTINGS_SOURCE_DIR_SETTINGS_VAL));
+    _settingsDeviceApp->set(QString(CB_SETTINGS_SOURCE_DIR_SETTINGS), settingsDir);
+
+    QString leftButtonTagsFile = CBGlobal::combinePath(settingsDir, ui->lineEditTagSettingFileName->text().trimmed());
+    _settingsDeviceApp->set(QString(CB_SETTINGS_LEFT_BUTTONS_TAGS_FILE), leftButtonTagsFile);
+
+    QString locationsSettingFile = CBGlobal::combinePath(settingsDir, ui->lineEditLocationSettingFileName->text().trimmed());
+    _settingsDeviceApp->set(QString(CB_SETTINGS_ORDER_LOCATIONS_FILE), locationsSettingFile);
+
     _settingsDeviceApp->set(QString(CB_SETTINGS_LEFT_BUTTON_TEXT_SIZE), QString::number(ui->spinBoxFontSizeLeftButton->value()));
     _settingsDeviceApp->set(QString(CB_SETTINGS_GRIDVIEW_COLUMN_COUNT), QString::number(ui->spinBoxMenuItemCol->value()));
     _settingsDeviceApp->set(QString(CB_SETTINGS_ORDERING_DIALOG_MAX_ITEM_COUNT), QString::number(ui->spinBoxMaxItemOrderedCount->value()));
