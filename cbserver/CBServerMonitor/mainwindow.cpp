@@ -23,6 +23,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     refreshMenuItemList();
+
+    connect(ui->actionMenuFileExportAll, SIGNAL(triggered()), this, SLOT(on_menuFileExportAllTriggered()));
+    connect(ui->actionMenuOrder, SIGNAL(triggered()), this, SLOT(on_menuOrderTriggered()));
+    connect(ui->actionMenuDish, SIGNAL(triggered()), this, SLOT(on_menuDishTriggered()));
+    connect(ui->actionMenuDishExport, SIGNAL(triggered()), this, SLOT(on_menuDishExportTriggered()));
+    connect(ui->actionMenuDevice, SIGNAL(triggered()), this, SLOT(on_menuDeviceTriggered()));
+    connect(ui->actionMenuDeviceExport, SIGNAL(triggered()), this, SLOT(on_menuDeviceExportTriggered()));
+    connect(ui->actionMenuPC, SIGNAL(triggered()), this, SLOT(on_menuPCTriggered()));
+    connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(on_menuHelpTriggered()));
+    connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(on_menuAboutTriggered()));
 }
 
 MainWindow::~MainWindow()
@@ -266,7 +276,7 @@ bool MainWindow::exportDishDir(const QString &dir)
 {
     bool res = false;
     QString name = CBGlobal::getFileName(CBSERVERMONITOR_DISHES_DIR);
-    qDebug()<<CBGlobal::combinePath(dir, name);
+
     if (!dir.isEmpty())
     {
         res = CBGlobal::copyDir(CBSERVERMONITOR_DISHES_DIR, CBGlobal::combinePath(dir, name), true);
@@ -668,7 +678,7 @@ bool MainWindow::loadLeftButtonTags()
         return false;
 
     QStringList leftButtonTags = _settingsLeftButton->getTags();
-    qDebug()<<leftButtonTags;
+
     for (int i = 0; i < leftButtonTags.count(); ++i)
         ui->listWidgetLeftButtons->addItem(leftButtonTags.at(i));
 
@@ -888,4 +898,54 @@ void MainWindow::on_lineEditSettingsDir_textChanged(const QString &)
 void MainWindow::on_lineEditLocationSettingFileName_textChanged(const QString &)
 {
     slt_settingsHasBeenChanged();
+}
+
+void MainWindow::on_menuFileExportAllTriggered()
+{
+
+}
+
+void MainWindow::on_menuFileExitTriggered()
+{
+
+}
+
+void MainWindow::on_menuOrderTriggered()
+{
+
+}
+
+void MainWindow::on_menuDishTriggered()
+{
+
+}
+
+void MainWindow::on_menuDishExportTriggered()
+{
+
+}
+
+void MainWindow::on_menuDeviceTriggered()
+{
+
+}
+
+void MainWindow::on_menuDeviceExportTriggered()
+{
+
+}
+
+void MainWindow::on_menuPCTriggered()
+{
+
+}
+
+void MainWindow::on_menuHelpTriggered()
+{
+
+}
+
+void MainWindow::on_menuAboutTriggered()
+{
+
 }

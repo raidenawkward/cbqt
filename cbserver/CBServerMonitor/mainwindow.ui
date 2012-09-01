@@ -941,37 +941,144 @@
     <property name="title">
      <string>文件</string>
     </property>
-    <addaction name="actionExportAll"/>
+    <addaction name="actionMenuFileExportAll"/>
     <addaction name="separator"/>
-    <addaction name="actionMenuQuit"/>
+    <addaction name="actionMenuFileQuit"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>帮助</string>
     </property>
-    <addaction name="action_3"/>
+    <addaction name="actionMenuHelp"/>
+    <addaction name="actionMenuAbout"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>终端</string>
+    </property>
+    <addaction name="actionMenuDevice"/>
+    <addaction name="actionMenuDeviceExport"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>订单</string>
+    </property>
+    <addaction name="actionMenuOrder"/>
+   </widget>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>菜品</string>
+    </property>
+    <addaction name="actionMenuDish"/>
+    <addaction name="actionMenuDishExport"/>
+   </widget>
+   <widget class="QMenu" name="menuPC">
+    <property name="title">
+     <string>PC端</string>
+    </property>
+    <addaction name="actionMenuPC"/>
+   </widget>
+   <widget class="QMenu" name="menu_6">
+    <property name="title">
+     <string>导出</string>
+    </property>
+    <addaction name="actionMenuExportDishes"/>
+    <addaction name="actionMenuExportSettings"/>
+    <addaction name="actionMenuExportExportAll"/>
    </widget>
    <addaction name="menu"/>
+   <addaction name="menu_4"/>
+   <addaction name="menu_5"/>
+   <addaction name="menu_3"/>
+   <addaction name="menuPC"/>
+   <addaction name="menu_6"/>
    <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionMenuQuit">
+  <action name="actionMenuFileQuit">
    <property name="text">
     <string>退出</string>
    </property>
   </action>
-  <action name="actionExportAll">
+  <action name="actionMenuFileExportAll">
    <property name="text">
     <string>全部导出...</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="actionMenuAbout">
    <property name="text">
     <string>关于...</string>
+   </property>
+  </action>
+  <action name="actionMenuDish">
+   <property name="text">
+    <string>管理 </string>
+   </property>
+  </action>
+  <action name="actionMenuDishExport">
+   <property name="text">
+    <string>导出...</string>
+   </property>
+  </action>
+  <action name="actionMenuDevice">
+   <property name="text">
+    <string>管理</string>
+   </property>
+  </action>
+  <action name="actionMenuDeviceExport">
+   <property name="text">
+    <string>导出...</string>
+   </property>
+  </action>
+  <action name="actionMenuExportDishes">
+   <property name="text">
+    <string>导出菜品...</string>
+   </property>
+  </action>
+  <action name="actionMenuExportSettings">
+   <property name="text">
+    <string>导出配置...</string>
+   </property>
+  </action>
+  <action name="actionMenuExportExportAll">
+   <property name="text">
+    <string>全部导出...</string>
+   </property>
+  </action>
+  <action name="actionMenuOrder">
+   <property name="text">
+    <string>管理</string>
+   </property>
+  </action>
+  <action name="actionMenuPC">
+   <property name="text">
+    <string>管理</string>
+   </property>
+  </action>
+  <action name="actionMenuHelp">
+   <property name="text">
+    <string>帮助</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionMenuFileQuit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>393</x>
+     <y>282</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

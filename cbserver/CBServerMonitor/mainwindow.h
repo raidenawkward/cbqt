@@ -88,6 +88,17 @@ private slots:
     void on_lineEditSettingsDir_textChanged(const QString &arg1);
     void on_lineEditLocationSettingFileName_textChanged(const QString &arg1);
 
+    void on_menuFileExportAllTriggered();
+    void on_menuFileExitTriggered();
+    void on_menuOrderTriggered();
+    void on_menuDishTriggered();
+    void on_menuDishExportTriggered();
+    void on_menuDeviceTriggered();
+    void on_menuDeviceExportTriggered();
+    void on_menuPCTriggered();
+    void on_menuHelpTriggered();
+    void on_menuAboutTriggered();
+
 private:
     void initTabWidgetDish();
     void initTabWidgetDeviceSettings();
