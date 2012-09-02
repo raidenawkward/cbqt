@@ -222,7 +222,7 @@ void MainWindow::slt_menuItemUpdate(CBMenuItem* item)
 
 void MainWindow::on_buttonAdd_clicked()
 {
-    DishInfoDialog dialog;
+    DishInfoDialog dialog(_engine);
     dialog.setWindowTitle(tr("添加"));
     dialog.setMenuItem(NULL);
     connect(&dialog,SIGNAL(sig_itemChanged(CBMenuItem*)), this, SLOT(slt_menuItemUpdate(CBMenuItem*)));
@@ -231,7 +231,7 @@ void MainWindow::on_buttonAdd_clicked()
 
 void MainWindow::on_buttonEdit_clicked()
 {
-    DishInfoDialog dialog;
+    DishInfoDialog dialog(_engine);
     dialog.setWindowTitle(tr("编辑"));
     int index = ui->tableWidgetDish->currentRow();
     CBMenuItem *item = _engine->getMenuItemsSet()->get(index);

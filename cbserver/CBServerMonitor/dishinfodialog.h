@@ -7,6 +7,7 @@
 #include <QStringList>
 #include "cbmenuitem.h"
 #include "cbglobal.h"
+#include "cbengine.h"
 
 namespace Ui {
 class DishInfoDialog;
@@ -17,7 +18,7 @@ class DishInfoDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit DishInfoDialog(QWidget *parent = 0);
+    explicit DishInfoDialog(CBEngine *engine, QWidget *parent = 0);
     ~DishInfoDialog();
 
     void setMenuItem(CBMenuItem* item);
@@ -32,6 +33,7 @@ protected:
     void setPreviewImage(const QString path);
     bool checkResult();
     void showWarning(const QString warning);
+    void clearWarning();
 
 private slots:
     void on_toolButtonThumb_clicked();
@@ -42,6 +44,7 @@ private slots:
     void on_buttonEdit_clicked();
     void on_buttonDeleteTag_clicked();
     void on_lineEditThumb_textChanged(const QString &arg1);
+    void on_lineEditId_textChanged(const QString &arg1);
 
     void slt_save();
     void slt_apply();
@@ -53,9 +56,12 @@ private:
     QStringList getTags();
     bool saveItem();
 
+    bool isIDConflict(const QString &id);
+
 private:
     Ui::DishInfoDialog *ui;
     CBMenuItem* _menuItem;
+    CBEngine *_engine;
 };
 
 #endif // DISHINFODIALOG_H

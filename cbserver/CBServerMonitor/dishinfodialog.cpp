@@ -1,5 +1,8 @@
 #include "dishinfodialog.h"
 #include "ui_dishinfodialog.h"
+#include "cbmenuitemsset.h"
+#include "cbmenuitem.h"
+
 #include <QFileDialog>
 #include <QPixmap>
 #include <QDebug>
@@ -7,11 +10,13 @@
 #include <QMessageBox>
 #include <QInputDialog>
 
-DishInfoDialog::DishInfoDialog(QWidget *parent) :
+DishInfoDialog::DishInfoDialog(CBEngine *engine, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DishInfoDialog),
     _menuItem(NULL)
 {
+    _engine = engine;
+
     ui->setupUi(this);
     QRegExp regx("[0-9]*[.]?[0-9]*");
     QValidator *validator = new QRegExpValidator(regx, this);
@@ -159,11 +164,22 @@ void DishInfoDialog::showWarning(const QString warning)
     ui->labelWarning->setText(warning);
 }
 
+void DishInfoDialog::clearWarning()
+{
+    ui->labelWarning->setText("");
+}
+
 bool DishInfoDialog::checkResult()
 {
     if (ui->lineEditId->text().isEmpty())
     {
         showWarning(tr("编号不能为空!"));
+        return false;
+    }
+
+    if (isIDConflict(ui->lineEditId->text().trimmed()))
+    {
+        showWarning("输入菜品的ID已经存在!");
         return false;
     }
 
@@ -254,6 +270,8 @@ void DishInfoDialog::setMenuItem(CBMenuItem* item)
     ui->lineEditPicture->setText(picturePath);
 
     setPreviewImage(thumbPath);
+
+    clearWarning();
 }
 
 CBMenuItem* DishInfoDialog::getMenuItem()
@@ -400,4 +418,37 @@ void DishInfoDialog::slt_reset()
 void DishInfoDialog::on_lineEditThumb_textChanged(const QString &arg1)
 {
     this->setPreviewImage(arg1);
+}
+
+void DishInfoDialog::on_lineEditId_textChanged(const QString &arg1)
+{
+    if (isIDConflict(arg1))
+    {
+        showWarning("输入菜品的ID已经存在!");
+    }
+    else
+    {
+        clearWarning();
+    }
+}
+
+bool DishInfoDialog::isIDConflict(const QString &id)
+{
+    if (!_engine)
+        return false;
+
+    CBMenuItemsSet *set = _engine->getMenuItemsSet();
+    if (!set)
+        return false;
+
+    if (_menuItem)
+    {
+        if (id.trimmed() != _menuItem->getDish().getId().toString())
+        {
+            if (set->get(CBId(id.trimmed())) != NULL)
+                return true;
+        }
+    }
+
+    return false;
 }
