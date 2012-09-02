@@ -53,3 +53,8 @@ DEPENDPATH += $$PWD/../../cbsupport
 win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../cbsupport/release/cbsupport.lib
 else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../cbsupport/debug/cbsupport.lib
 else:unix:!symbian: PRE_TARGETDEPS += $$OUT_PWD/../../cbsupport/libcbsupport.a
+
+RESOURCES += \
+    cbsource.qrc
+
+OTHER_FILES +=

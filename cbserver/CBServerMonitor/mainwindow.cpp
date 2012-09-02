@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionMenuExportExportAll, SIGNAL(triggered()), this, SLOT(slt_menuFileExportAllTriggered()));
 
     connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(slt_menuHelpTriggered()));
-    connect(ui->actionMenuHelp, SIGNAL(triggered()), this, SLOT(slt_menuAboutTriggered()));
+    connect(ui->actionMenuAbout, SIGNAL(triggered()), this, SLOT(slt_menuAboutTriggered()));
 }
 
 MainWindow::~MainWindow()
@@ -1015,5 +1015,9 @@ void MainWindow::slt_menuHelpTriggered()
 
 void MainWindow::slt_menuAboutTriggered()
 {
+    QMessageBox message(QMessageBox::NoIcon, "关于", ABOUT_CONTENT);
+    QPixmap icon = QPixmap(":/image/logo.png");
 
+    message.setIconPixmap(icon);
+    message.exec();
 }

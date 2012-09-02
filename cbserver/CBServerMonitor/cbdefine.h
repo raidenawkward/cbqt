@@ -60,4 +60,11 @@ static const char s_cb_device_charset[2][20] = {
     "utf-8",
 };
 
+#define ABOUT_CONTENT "PC software for dish ordering system\n" \
+                        "management.\n\n" \
+                        "Any problem please contact\n" \
+                        "raiden.ht@gmail.com\n\n" \
+                        "Copyright© Raiden Awkward.\n" \
+                        "All rights reserved."
+
 #endif // CBDEFINE_H
