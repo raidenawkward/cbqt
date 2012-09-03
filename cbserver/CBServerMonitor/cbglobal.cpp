@@ -122,7 +122,12 @@ bool CBGlobal::mkdir_P(const QString &dirPath)
     QDir dir(dirs.at(0).isEmpty()? CBPATH_SPLITOR : dirs.at(0));
 
     QString current = dir.path();
+
+#ifdef WIN32
+    for (int i = 1; i < dirs.count(); ++i)
+#else
     for (int i = 0; i < dirs.count(); ++i)
+#endif
     {
         current += QString(CBPATH_SPLITOR) + dirs.at(i);
 
